@@ -19,7 +19,7 @@ public enum CellType {
     @Override
     public String toString() {
         if(this == EMPTY){
-            return "EMPT";
+            return "EMPTY";
         } else if (this == OBSTACLE){
             return "OBST";
         } else {
