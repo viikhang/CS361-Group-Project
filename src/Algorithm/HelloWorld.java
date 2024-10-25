@@ -5,9 +5,10 @@ import java.io.FileReader;
 
 public class HelloWorld {
     public static CellType[][] grid;
+
     public static void main(String[] args) {
         //read in a file here, then after creating the graph,
-        if(args.length != 1){
+        if (args.length != 1) {
             System.out.println("Invalid arguments given");
             System.exit(1);
         } else {
@@ -20,12 +21,38 @@ public class HelloWorld {
                 grid = new CellType[width][height];
 
                 String line;
-                while((line = reader.readLine()) != null){
-                    String[] cellTypes = line.split(" ");// bruh
+                for (int i = 0; i < height; i++) {
+                    line = reader.readLine();
+                    String[] values = line.split(" ");
+                    for (int j = 0; j < width; j++) {
+                        CellType type = convert(values[j].charAt(0));
+                                grid[i][j] = type;
+                    }
                 }
-            } catch (Exception e){
+            } catch (Exception e) {
                 throw new RuntimeException(e);
             }
+        }
+        //after creating the 2d array, call method that will turn into
+        printBoard();
+    }
+
+    public static CellType convert(char input) {
+        if (input == 'I') {
+            return CellType.ITEM;
+        } else if (input == 'O') {
+            return CellType.OBSTACLE;
+        } else {
+            return CellType.EMPTY;
+        }
+    }
+    public static void printBoard(){
+        for(int i = 0 ; i < grid.length;i++ ){
+            for(int j = 0; j < grid[0].length;j++){
+                System.out.print(grid[i][j]);
+                System.out.print(" ");
+            }
+            System.out.println();
         }
     }
 }
