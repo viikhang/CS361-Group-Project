@@ -8,9 +8,20 @@ public class GraphNode {
      *
      */
     public GraphNode(){
-        GraphNode[] node = new GraphNode[8];
         for(int i = 0; i < 8; i++){
-            node[i] = null;
+            vertices[i] = null;
         }
+    }
+
+    public void setCellType(CellType cellType) {
+        this.cellType = cellType;
+    }
+
+    public CellType getCellType() {
+        return cellType;
+    }
+
+    public GraphNode[] getVertices() {
+        return vertices;
     }
 }
