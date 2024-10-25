@@ -19,6 +19,11 @@ public class HelloWorld {
                 int height = Integer.parseInt(dimensions[1]);
                 grid = new CellType[width][height];
 
+                String line;
+                while((line = reader.readLine()) != null){
+                    String[] cellTypes = line.split(" ");
+
+                }
             } catch (Exception e){
                 throw new RuntimeException(e);
             }
