@@ -21,8 +21,7 @@ public class HelloWorld {
 
                 String line;
                 while((line = reader.readLine()) != null){
-                    String[] cellTypes = line.split(" ");
-
+                    String[] cellTypes = line.split(" ");// bruh
                 }
             } catch (Exception e){
                 throw new RuntimeException(e);
