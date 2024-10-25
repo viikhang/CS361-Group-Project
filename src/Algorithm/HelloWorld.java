@@ -5,6 +5,8 @@ import java.io.FileReader;
 
 public class HelloWorld {
     public static CellType[][] grid;
+    public static int itemsFound = 0;
+    public static Graph graph;
 
     public static void main(String[] args) {
         //read in a file here, then after creating the graph,
@@ -33,12 +35,14 @@ public class HelloWorld {
                 throw new RuntimeException(e);
             }
         }
-        //after creating the 2d array, call method that will turn into
+        //after creating the 2d array, call searching methods, pass the graph
+        // and the total amount of items that are created
         printBoard();
     }
 
     public static CellType convert(char input) {
         if (input == 'I') {
+            itemsFound++;
             return CellType.ITEM;
         } else if (input == 'O') {
             return CellType.OBSTACLE;
