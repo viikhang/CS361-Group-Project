@@ -3,7 +3,7 @@ package Algorithm;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
-public class HelloWorld {
+public class Main {
     public static CellType[][] grid;
     public static int itemsFound = 0;
     public static Graph graph;
