@@ -2,29 +2,58 @@ package Algorithm;
 
 public class Graph {
 
-    private GraphNode[] newArr;
+    private final CellType[][] board;
 
-    private CellType[][] board;
-    private int boardSize;
+    private GraphNode[] itemNodeList;
+    //use this array to know what items we need to find while traversing
+    // through the graph
+    private int[][] weightGrid;
+    private final int rowSize;
+    private int colSize;
+    private final int totalNodes;
 
     public Graph(CellType[][] board) {
         this.board = board;
-        boardSize = board.length;
+        rowSize = board.length;
+        colSize = board[0].length;
+        totalNodes = rowSize * colSize;
+        itemNodeList = new GraphNode[totalNodes];
+        for (int i = 0; i < totalNodes; i++) {
+            itemNodeList[i] = null; //set whole list to null
+        }
 
         GraphNode[][] nodeBoard = new GraphNode[board.length][board[0].length];
         //initialize board of graphNodes
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[i].length; j++) {
-                GraphNode node = new GraphNode();
+        for (int i = 0; i < rowSize; i++) {
+            for (int j = 0; j < colSize; j++) {
+                GraphNode node = new GraphNode(i,j);
                 node.setCellType(board[i][j]);
                 nodeBoard[i][j] = node;
             }
         }
 
         //set the vertices for every graphNode
-        for (int i = 0; i < nodeBoard.length; i++) {
-            for (int j = 0; j < nodeBoard[i].length; j++) {
+        for (int i = 0; i < rowSize; i++) {
+            for (int j = 0; j < colSize; j++) {
                 setVertices(i, j, nodeBoard[i][j], nodeBoard);
+            }
+        }
+        //create list of items that need to be found
+        for (int i = 0; i < rowSize; i++) {
+            for (int j = 0; j < colSize; j++) {
+                if (nodeBoard[i][j].getCellType() == CellType.ITEM) {
+                    addNode(nodeBoard[i][j]); //add item node to array
+                }
+            }
+        }
+
+    }
+
+    public void addNode(GraphNode node) {
+        for (int i = 0; i < totalNodes; i++) {
+            if (itemNodeList[i] == null) {
+                itemNodeList[i] = node;
+                break; //break once we find the first empty spot in the array
             }
         }
     }
@@ -52,6 +81,7 @@ public class Graph {
         //top left vertices(0)
         if (inBoundL(row) && inBoundL(col) && nodeBoard[row - 1][col - 1].getCellType() != obs) {
             node.getVertices()[0] = nodeBoard[row - 1][col - 1];
+            node.getNodeToVertexCost()[0] = 1; //set the weight
         }
 
         // - * -
@@ -61,6 +91,7 @@ public class Graph {
         // above vertices(1)
         if (inBoundL(row) && nodeBoard[row - 1][col].getCellType() != obs) {
             node.getVertices()[1] = nodeBoard[row - 1][col];
+            node.getNodeToVertexCost()[1] = 1;
         }
 
         // - - *
@@ -68,8 +99,9 @@ public class Graph {
         // - - -
 
         //top right vertices(2)
-        if (inBoundL(row) && inBoundR(col) && nodeBoard[row - 1][col + 1].getCellType() != obs) {
+        if (inBoundL(row) && inBoundR(col, colSize) && nodeBoard[row - 1][col + 1].getCellType() != obs) {
             node.getVertices()[2] = nodeBoard[row - 1][col + 1];
+            node.getNodeToVertexCost()[2] = 1;
         }
         // - - -
         // * x -
@@ -78,6 +110,7 @@ public class Graph {
         //left vertices(3)
         if (inBoundL(col) && nodeBoard[row][col - 1].getCellType() != obs) {
             node.getVertices()[3] = nodeBoard[row][col - 1];
+            node.getNodeToVertexCost()[3] = 1;
         }
 
         // - - -
@@ -85,8 +118,9 @@ public class Graph {
         // - - -
 
         //right vertices(4)
-        if (inBoundR(col) && nodeBoard[row][col + 1].getCellType() != obs) {
+        if (inBoundR(col, colSize) && nodeBoard[row][col + 1].getCellType() != obs) {
             node.getVertices()[4] = nodeBoard[row][col + 1];
+            node.getNodeToVertexCost()[4] = 1;
         }
 
         // - - -
@@ -94,8 +128,9 @@ public class Graph {
         // * - -
 
         //bottom left vertices(5)
-        if (inBoundR(row) && inBoundL(col) && nodeBoard[row + 1][col - 1].getCellType() != obs) {
+        if (inBoundR(row, rowSize) && inBoundL(col) && nodeBoard[row + 1][col - 1].getCellType() != obs) {
             node.getVertices()[5] = nodeBoard[row + 1][col - 1];
+            node.getNodeToVertexCost()[5] = 1;
         }
 
         // - - -
@@ -103,8 +138,9 @@ public class Graph {
         // - * -
 
         //below vertices(6)
-        if (inBoundR(row) && nodeBoard[row + 1][col].getCellType() != obs) {
+        if (inBoundR(row, rowSize) && nodeBoard[row + 1][col].getCellType() != obs) {
             node.getVertices()[6] = nodeBoard[row + 1][col];
+            node.getNodeToVertexCost()[6] = 1;
         }
 
         // - - -
@@ -112,8 +148,9 @@ public class Graph {
         // - - *
 
         //bottom right vertices(7)
-        if (inBoundR(row) && inBoundR(col) && nodeBoard[row + 1][col + 1].getCellType() != obs) {
+        if (inBoundR(row, rowSize) && inBoundR(col, colSize) && nodeBoard[row + 1][col + 1].getCellType() != obs) {
             node.getVertices()[7] = nodeBoard[row + 1][col + 1];
+            node.getNodeToVertexCost()[7] = 1;
         }
     }
 
@@ -121,7 +158,23 @@ public class Graph {
         return val - 1 >= 0;
     }
 
-    private boolean inBoundR(int val) {
-        return val + 1 < boardSize;
+    private boolean inBoundR(int val, int size) {
+        return val + 1 < size;
+    }
+
+    public void setItemNodeList(GraphNode[] itemNodeList) {
+        this.itemNodeList = itemNodeList;
+    }
+
+    public CellType[][] getBoard() {
+        return board;
+    }
+
+    public GraphNode[] getItemNodeList() {
+        return itemNodeList;
+    }
+
+    public int[][] getWeightGrid() {
+        return weightGrid;
     }
 }

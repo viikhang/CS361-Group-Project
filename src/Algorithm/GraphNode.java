@@ -3,8 +3,13 @@ package Algorithm;
 public class GraphNode {
     private CellType cellType = CellType.EMPTY;
     private GraphNode[] vertices = new GraphNode[8];
+    private int[] nodeToVertexCost = new int[8];
+    private int xCord;
+    private int yCord;
 
-    public GraphNode(){
+    public GraphNode(int xCord, int yCord) {
+        this.xCord = xCord;
+        this.yCord = yCord;
         for(int i = 0; i < 8; i++){
             vertices[i] = null;
         }
@@ -20,5 +25,14 @@ public class GraphNode {
 
     public GraphNode[] getVertices() {
         return vertices;
+    }
+
+    public int[] getNodeToVertexCost() {
+        return nodeToVertexCost;
+    }
+
+    @Override
+    public String toString() {
+        return "(" + xCord + " , " + yCord + ")";
     }
 }

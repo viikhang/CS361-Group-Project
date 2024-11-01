@@ -37,6 +37,8 @@ public class Main {
         }
         //after creating the 2d array, call searching methods, pass the graph
         // and the total amount of items that are created
+        graph = new Graph(grid);
+        //pass graph array to each algorithm and then
         printBoard();
     }
 
