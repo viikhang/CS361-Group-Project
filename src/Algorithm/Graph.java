@@ -3,6 +3,7 @@ package Algorithm;
 public class Graph {
 
     private final CellType[][] board;
+    private GraphNode[] nodeList;
 
     private GraphNode[] itemNodeList;
     //use this array to know what items we need to find while traversing
@@ -18,8 +19,10 @@ public class Graph {
         colSize = board[0].length;
         totalNodes = rowSize * colSize;
         itemNodeList = new GraphNode[totalNodes];
+        nodeList = new GraphNode[totalNodes];
         for (int i = 0; i < totalNodes; i++) {
             itemNodeList[i] = null; //set whole list to null
+            nodeList[i] = null;
         }
 
         GraphNode[][] nodeBoard = new GraphNode[board.length][board[0].length];
@@ -42,18 +45,28 @@ public class Graph {
         for (int i = 0; i < rowSize; i++) {
             for (int j = 0; j < colSize; j++) {
                 if (nodeBoard[i][j].getCellType() == CellType.ITEM) {
-                    addNode(nodeBoard[i][j]); //add item node to array
+                    addItemNode(nodeBoard[i][j]); //add item node to array
                 }
+                addNode(nodeBoard[i][j]); //add node to list containing all
+                // nodes
             }
         }
 
     }
 
-    public void addNode(GraphNode node) {
+    private void addItemNode(GraphNode node) {
         for (int i = 0; i < totalNodes; i++) {
             if (itemNodeList[i] == null) {
                 itemNodeList[i] = node;
                 break; //break once we find the first empty spot in the array
+            }
+        }
+    }
+    private void addNode(GraphNode node){
+        for(int i = 0; i < totalNodes; i++){
+            if(nodeList[i] == null){
+                nodeList[i] = node;
+                break;
             }
         }
     }
@@ -174,7 +187,15 @@ public class Graph {
         return itemNodeList;
     }
 
+    public GraphNode[] getNodeList() {
+        return nodeList;
+    }
+
     public int[][] getWeightGrid() {
         return weightGrid;
+    }
+
+    public int getTotalNodes() {
+        return totalNodes;
     }
 }

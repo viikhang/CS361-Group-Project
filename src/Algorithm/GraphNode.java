@@ -4,6 +4,7 @@ public class GraphNode {
     private CellType cellType = CellType.EMPTY;
     private GraphNode[] vertices = new GraphNode[8];
     private int[] nodeToVertexCost = new int[8];
+    private int color;
     private int xCord;
     private int yCord;
 
@@ -31,8 +32,16 @@ public class GraphNode {
         return nodeToVertexCost;
     }
 
+    public int getColor() {
+        return color;
+    }
+    public void setColor(int color) {
+        this.color = color;
+    }
+
     @Override
     public String toString() {
         return "(" + xCord + " , " + yCord + ")";
     }
+
 }
