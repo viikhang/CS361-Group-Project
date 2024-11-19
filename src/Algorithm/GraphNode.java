@@ -2,16 +2,17 @@ package Algorithm;
 
 public class GraphNode {
     private CellType cellType = CellType.EMPTY;
-    private GraphNode[] vertices = new GraphNode[8];
-    private int[] nodeToVertexCost = new int[8];
+    private final GraphNode[] vertices = new GraphNode[4];
+    private final int[] nodeToVertexCost = new int[4];
     private int color;
-    private int xCord;
-    private int yCord;
+    private final int xCord;
+    private final int yCord;
+    private boolean visited;
 
     public GraphNode(int xCord, int yCord) {
         this.xCord = xCord;
         this.yCord = yCord;
-        for(int i = 0; i < 8; i++){
+        for(int i = 0; i < 4; i++){
             vertices[i] = null;
         }
     }
@@ -30,6 +31,14 @@ public class GraphNode {
 
     public int[] getNodeToVertexCost() {
         return nodeToVertexCost;
+    }
+
+    public boolean isVisited() {
+        return visited;
+    }
+
+    public void setVisited(boolean visited) {
+        this.visited = visited;
     }
 
     public int getColor() {

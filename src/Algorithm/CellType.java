@@ -4,7 +4,8 @@ public enum CellType {
 
     EMPTY('.'),
     OBSTACLE('O'),
-    ITEM('I');
+    ITEM('I'),
+    FOUND_PATH('F');
 
     private char symbol;
 
@@ -21,9 +22,11 @@ public enum CellType {
         if(this == EMPTY){
             return "EMPTY";
         } else if (this == OBSTACLE){
-            return "OBST";
-        } else {
-            return "ITEM";
+            return "OBSTS";
+        }else if(this == FOUND_PATH){
+            return "FOUND";
+        }else {
+            return "ITEMS";
         }
     }
 }

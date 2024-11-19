@@ -40,9 +40,22 @@ public class Main {
         graph = new Graph(grid);
         //pass graph array to each algorithm and then
         printBoard();
+        GraphNode startingNode = graph.getStartingNode();
+
+        System.out.println("Depth First Search");
+
+        DepthFirstSearch dfs = new DepthFirstSearch(graph.getTotalNodes());
+
+        if(graph.getItemCount() == 1) {
+            dfs.findShortestPath(startingNode, graph.getItemNodeList()[0]);
+            dfs.printPath();
+            System.out.println("here");
+        } else {
+            //need to do more than one call
+        }
     }
 
-    public static CellType convert(char input) {
+    private static CellType convert(char input) {
         if (input == 'I') {
             itemsFound++;
             return CellType.ITEM;
@@ -52,7 +65,7 @@ public class Main {
             return CellType.EMPTY;
         }
     }
-    public static void printBoard(){
+    private static void printBoard(){
         for(int i = 0 ; i < grid.length;i++ ){
             for(int j = 0; j < grid[0].length;j++){
                 System.out.print(grid[i][j]);

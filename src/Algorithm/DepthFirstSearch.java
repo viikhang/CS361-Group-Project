@@ -2,55 +2,70 @@ package Algorithm;
 
 public class DepthFirstSearch {
     private GraphNode[] shortestPath;
-    public void Dfs(Graph graph) {
-        shortestPath = new GraphNode[graph.getTotalNodes()]; //array
-        // containing the shortest path
+    private int pathIndex;
 
-        for(GraphNode node : graph.getNodeList()) {
-            node.setColor(-1);
-            //node.previous = -1;
+    public DepthFirstSearch(int size) {
+        shortestPath = new GraphNode[size];
+        pathIndex = 0;
+    }
+    public void findShortestPath(GraphNode start, GraphNode target) {
+        shortestPath = DFS(start,target);
+    }
+
+    public GraphNode[] DFS(GraphNode start, GraphNode target) {
+        if(dfsHelper(start,target,shortestPath)){
+            return shortestPath;
         }
-        int time = 0;
-        for(GraphNode node : graph.getNodeList()){
-            if(node.getColor() == -1){
-                DfsVisit(node, graph.getNodeList(), time);
+
+        return null; //no path was found
+    }
+
+    public boolean dfsHelper(GraphNode current, GraphNode target, GraphNode[] shortestPath) {
+        if(current ==  null){
+            return false;
+        }
+        current.setVisited(true);
+        addNode(current);
+        if(current == target){
+            return true;
+        }
+
+        for(GraphNode neighbor : current.getVertices()) {
+            if(neighbor != null && !neighbor.isVisited()){
+                if(dfsHelper(neighbor,target,shortestPath)){
+                    return true;
+                }
             }
         }
-        return        //what are we returning for?
+        removeNodeFromPath();
+        return false;
     }
-    public void DfsVisit(GraphNode node, GraphNode[] array, int time){
-        node.setColor(0);
-        time += 1;
-        //discoveryTime:
-        d[u] = time;
 
-        //Something here
-        GraphNode[] AdjNodes = new GraphNode[array.length];
-        transferElements(AdjNodes,findAdjacentNodes(node));
-        //
+    private void addNode(GraphNode node){
+        if(pathIndex < shortestPath.length){
+            shortestPath[pathIndex] = node;
+            pathIndex++;
+        }
+    }
 
-        for(GraphNode adjNode : AdjNodes){
-            if(node.getColor() == -1){
-                DfsVisit(adjNode, array, time);
+    private void removeNodeFromPath(){
+        if(pathIndex > 0){
+            shortestPath[pathIndex] = null;
+            pathIndex--;
+        }
+    }
+    public void printPath() {
+        for(int i = 0; i < shortestPath.length; i++){
+            if(shortestPath[i] != null) {
+                System.out.print(shortestPath[i]);
+                if(i +1 < shortestPath.length && shortestPath[i + 1] != null) {
+                    System.out.print(" -> ");
+                }
+            } else {
+                break;
             }
         }
-        node.setColor(1);
-        time = time + 1;
-        //finalTime:
-        f[u] = time;
-
-        //Add node to path of visitedNodes
+        System.out.println();
     }
 
-
-    //find adjacent nodes
-    public GraphNode[] findAdjacentNodes(GraphNode node){
-        GraphNode[] AdjNodes = new GraphNode[ /** example number **/ ];
-        return AdjNodes;
-    }
-    public void transferElements(GraphNode[] transTo, GraphNode[] transFrom){
-        for(int i = 0; i < transTo.length; i++){
-            transTo[i] = transFrom[i];
-        }
-    }
 }
