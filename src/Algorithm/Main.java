@@ -53,6 +53,13 @@ public class Main {
         } else {
             //need to do more than one call
         }
+        // lil dijkstra for ya
+        Dijkstra diji =new Dijkstra(graph);
+        if(graph.getItemCount() == 1){
+            diji.dijkstraShortestPath(startingNode, graph.getItemNodeList()[0]);
+            diji.printPath();
+            System.out.println("voila");
+        }
     }
 
     private static CellType convert(char input) {

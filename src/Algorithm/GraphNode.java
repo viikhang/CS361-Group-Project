@@ -41,6 +41,14 @@ public class GraphNode {
         this.visited = visited;
     }
 
+    public int getRow(){
+        return xCord;
+    }
+
+    public int getCol(){
+        return yCord;
+    }
+
     public int getColor() {
         return color;
     }
