@@ -31,10 +31,12 @@ public class Dijkstra {
 
     public void dijkstraShortestPath(GraphNode start, GraphNode target) {
         shortestPath = DIJ(start, target);
-        int finalWeight = 0;
-        for (GraphNode n : shortestPath) {
+        //int finalWeight = 0;
+        /*for (GraphNode n : shortestPath) {
             finalWeight += distances[n.getRow()][n.getCol()];
         }
+
+         */
     }
 
     public GraphNode[] DIJ(GraphNode start, GraphNode target) {

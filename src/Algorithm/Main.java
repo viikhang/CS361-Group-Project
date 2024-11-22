@@ -53,12 +53,21 @@ public class Main {
         } else {
             //need to do more than one call
         }
+
+
         // lil dijkstra for ya
         Dijkstra diji =new Dijkstra(graph);
         if(graph.getItemCount() == 1){
             diji.dijkstraShortestPath(startingNode, graph.getItemNodeList()[0]);
             diji.printPath();
             System.out.println("voila");
+        }
+    }
+
+
+    private void resetGraphNodes(){
+        for(int i = 0; i < graph.getNodeList().length; i++ ){
+            graph.getNodeList()[i].setVisited(false);
         }
     }
 
