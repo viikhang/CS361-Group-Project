@@ -45,27 +45,30 @@ public class Main {
         System.out.println("Depth First Search");
 
         DepthFirstSearch dfs = new DepthFirstSearch(graph.getTotalNodes());
-
-        if(graph.getItemCount() == 1) {
-            dfs.findShortestPath(startingNode, graph.getItemNodeList()[0]);
-            dfs.printPath();
-            System.out.println("here");
-        } else {
-            //need to do more than one call
-        }
+//
+//        if(graph.getItemCount() == 1) {
+//            dfs.findShortestPath(startingNode, graph.getItemNodeList()[0]);
+//            dfs.printPath();
+//            System.out.println("here");
+//        } else {
+//            //need to do more than one call
+//        }
 
 
         // lil dijkstra for ya
-        Dijkstra diji =new Dijkstra(graph);
-        if(graph.getItemCount() == 1){
+        Dijkstra diji = new Dijkstra(graph);
+        if(graph.getItemCount() == 1) {
+            resetGraphNodes();
             diji.dijkstraShortestPath(startingNode, graph.getItemNodeList()[0]);
             diji.printPath();
             System.out.println("voila");
+        } else {
+
         }
     }
 
 
-    private void resetGraphNodes(){
+    private static void resetGraphNodes(){
         for(int i = 0; i < graph.getNodeList().length; i++ ){
             graph.getNodeList()[i].setVisited(false);
         }

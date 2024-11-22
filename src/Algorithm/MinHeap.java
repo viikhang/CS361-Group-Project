@@ -8,16 +8,15 @@ public class MinHeap {
 
     public MinHeap(int size){
         heap = new GraphNode[size];
-        distances =new int[size];
-        size = 0;
-
+        distances = new int[size];
+        this.size = 0;
     }
 
     public void insert(GraphNode node, int distance){
         heap[size] = node;
         distances[size] = distance;
         heapifyUp(size);
-        size ++;
+        size++;
     }
 
     public GraphNode extractMin(){
@@ -27,8 +26,16 @@ public class MinHeap {
 
         GraphNode minVertex = heap[0];
         distances[0] = distances[size -1];
-        size --;
-        heapifyDown(0);
+        size--;
+
+        GraphNode[] newHeap = new GraphNode[heap.length];
+
+        if(heap.length > 1) {
+            for (int i = 1; i < heap.length; i++) {
+                newHeap[i - 1] = heap[i];
+            }
+        }
+        heap = newHeap;
 
         return minVertex;
     }
@@ -58,28 +65,7 @@ public class MinHeap {
         }
     }
 
-    private void heapifyDown(int index){
-        while(index < size){
-            int left =  2 * index +1;
-            int right = 2 * index +2;
-            int min = index;
 
-            if(left < min && distances[left]< distances[min]){
-                min = left;
-            }
-            if(right< min && distances[right]< distances[min]){
-                min = right;
-            }
-            if(min != index){
-                swap(index,min);
-                index = min;
-            }
-            else{
-                break;
-            }
-        }
-
-    }
 
     private void swap( int i, int j){
         GraphNode temp = heap[i];
@@ -91,4 +77,6 @@ public class MinHeap {
         distances[j] = tempDist;
         heap[j] = temp;
     }
+
+
 }
