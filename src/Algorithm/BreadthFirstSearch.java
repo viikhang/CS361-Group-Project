@@ -82,6 +82,7 @@ public class BreadthFirstSearch {
         }
     }
 
+
     public void printPath() {
         for(int i = 0; i < shortestPath.length; i++){
             System.out.println(shortestPath[i]);
@@ -97,6 +98,18 @@ public class BreadthFirstSearch {
         System.out.println();
     }
 
-
 }
+
+
+
+
+/// BFS Initialization
+//BreadthFirstSearch bfs = new BreadthFirstSearch(graph.getTotalNodes());
+//        if(graph.getItemCount() == 1) {
+//        bfs.findShortestPath(startingNode, graph.getItemNodeList()[0]);
+////            bfs.printPath();
+//        } else {
+//        //need to do more than one call
+//        }
+///
 
