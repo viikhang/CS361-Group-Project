@@ -4,7 +4,6 @@ public class Dijkstra {
 
     private int[][] distances;
     private GraphNode[][] predecessors;
-    private boolean[][] visited;
     private GraphNode[] shortestPath;
     private int pathIndex;
 
@@ -18,12 +17,12 @@ public class Dijkstra {
         int cols = graph.getBoard()[0].length;
         predecessors = new GraphNode[rows][cols];
         distances = new int[rows][cols];
-        visited = new boolean[rows][cols];
+
 
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 distances[i][j] = Integer.MAX_VALUE;
-                visited[i][j] = false;
+
             }
         }
 
@@ -41,7 +40,7 @@ public class Dijkstra {
 
     public GraphNode[] DIJ(GraphNode start, GraphNode target) {
         distances[start.getRow()][start.getCol()] = 0;
-        visited[start.getRow()][start.getCol()] = true;
+
         predecessors[start.getRow()][start.getCol()] = start;
 
         MinHeap heap = new MinHeap(size);
@@ -56,7 +55,7 @@ public class Dijkstra {
                 continue;
             }
 
-            visited[current.getRow()][current.getCol()] = true;
+            current.setVisited(true);
 
             if (current == target) {
                 //function that keeps track of path taken
@@ -67,14 +66,14 @@ public class Dijkstra {
 
                 GraphNode neighbor = current.getVertices()[i];
 
-                if (neighbor != null && !(visited[neighbor.getRow()][neighbor.getCol()])) {
+                if (neighbor != null && !(neighbor.isVisited())) {
 
                     int updatedDist = distances[current.getRow()][current.getCol()] + current.getNodeToVertexCost()[i];
-
                     if (updatedDist < distances[neighbor.getRow()][neighbor.getCol()]) {
                         distances[neighbor.getRow()][neighbor.getCol()] = updatedDist;
                         predecessors[neighbor.getRow()][neighbor.getCol()] = current;
                         heap.insert(neighbor, updatedDist);
+
                     }
                 }
             }
