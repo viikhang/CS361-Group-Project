@@ -1,6 +1,7 @@
 package Algorithm;
 
 
+import java.util.LinkedList;
 import java.util.Queue;
 
 
@@ -8,72 +9,64 @@ public class BreadthFirstSearch {
     private GraphNode[] shortestPath;
     private int pathIndex;
     Graph graph;
-    public BreadthFirstSearch(Graph graph){
-        this.graph = graph;
-        shortestPath = new GraphNode[graph.getSize()];
+
+    public BreadthFirstSearch(int size) {
+        shortestPath = new GraphNode[size];
         pathIndex = 0;
     }
-    public void findShortestPath(GraphNode start, GraphNode target) {
-        shortestPath = BFS(start,target);
-    }
 
+    public void findShortestPath(GraphNode start, GraphNode target) {
+        shortestPath = BFS(start, target);
+    }
 
     public GraphNode[] BFS(GraphNode start, GraphNode target) {
-//        if(bfsHelper(start,target,shortestPath)){
-//            return shortestPath;
-//        }
-//
-//        return null; //no path was found
-        for (GraphNode neighbor : node.getVertices()) {
-            color[]u = white;
-            d[u] = infin;
-            time[u] = null;
+        if(bfsHelper(start,target,shortestPath)){
+            return shortestPath;
         }
 
-
-        color[s] = gray;
-        d[s] = 0;
-        time[s] = null;
-        Queue queue = null;
-        enqueue(Q,s);
-        while(!queue.isEmpty()){
-            u = dequeue(queue);
-            for(GraphNode neighbor : adjacentNodes.getVertices()) {
-                if(color[v] == white){
-                    color[v] = gray;
-                    d[v] = d[u] + 1;
-                    time[v] = u;
-                    enqueue(Q,v);
-
-
-                }
-            }
-            color[u] = black;
-        }
-
-
+        return null; //no path was found
     }
     public boolean bfsHelper(GraphNode current, GraphNode target, GraphNode[] shortestPath) {
+        // checks if current node is null
+        //might remove
         if(current ==  null){
             return false;
         }
+
+        // might remove this
         current.setVisited(true);
         addNode(current);
+
+        // create queue
+        Queue<GraphNode> queue = new LinkedList<>();
+
+        // checks if current node works
         if(current == target){
             return true;
         }
+        // adds current to the queue
+        queue.add(current);
 
 
-        for(GraphNode neighbor : current.getVertices()) {
-            if(neighbor != null && !neighbor.isVisited()){
-                if(bfsHelper(neighbor,target,shortestPath)){
+        while(!queue.isEmpty()){
+            GraphNode u = queue.remove();
+            for(GraphNode v : u.getVertices()){
+                if(v != null && !v.isVisited()){
+                    v.setVisited(true);
+                    queue.add(v);
+                    addNode(current);
+
+                }
+                if(v == target){
                     return true;
                 }
             }
+//            removeNodeFromPath();
         }
-        removeNodeFromPath();
         return false;
     }
+
+
     private void addNode(GraphNode node){
         if(pathIndex < shortestPath.length){
             shortestPath[pathIndex] = node;
@@ -90,14 +83,15 @@ public class BreadthFirstSearch {
     }
     public void printPath() {
         for(int i = 0; i < shortestPath.length; i++){
-            if(shortestPath[i] != null) {
-                System.out.print(shortestPath[i]);
-                if(i +1 < shortestPath.length && shortestPath[i + 1] != null) {
-                    System.out.print(" -> ");
-                }
-            } else {
-                break;
-            }
+            System.out.println(shortestPath[i]);
+//            if(shortestPath[i] != null) {
+//                System.out.print(shortestPath[i]);
+//                if(i + 1 < shortestPath.length && shortestPath[i + 1] != null) {
+//                    System.out.print(" -> ");
+//                }
+//            } else {
+//                break;
+//            }
         }
         System.out.println();
     }
