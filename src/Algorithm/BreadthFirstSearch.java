@@ -102,7 +102,6 @@ public class BreadthFirstSearch {
 
 
 
-
 /// BFS Initialization
 //BreadthFirstSearch bfs = new BreadthFirstSearch(graph.getTotalNodes());
 //        if(graph.getItemCount() == 1) {
