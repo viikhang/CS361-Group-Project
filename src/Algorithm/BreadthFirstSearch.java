@@ -81,6 +81,7 @@ public class BreadthFirstSearch {
             pathIndex--;
         }
     }
+
     public void printPath() {
         for(int i = 0; i < shortestPath.length; i++){
             System.out.println(shortestPath[i]);
