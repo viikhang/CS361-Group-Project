@@ -53,11 +53,15 @@ public class BreadthFirstSearch {
             for(GraphNode v : u.getVertices()){
                 if(v != null && !v.isVisited()){
                     v.setVisited(true);
+                    addNode(v);
                     queue.add(v);
-                    addNode(current);
-
+                    System.out.println(v);
                 }
                 if(v == target){
+                    System.out.println("in queue found");
+                    while(!queue.isEmpty()){
+                        System.out.println(queue.poll());
+                    }
                     return true;
                 }
             }
@@ -75,29 +79,28 @@ public class BreadthFirstSearch {
     }
 
 
-    private void removeNodeFromPath(){
-        if(pathIndex > 0){
-            shortestPath[pathIndex] = null;
-            pathIndex--;
-        }
-    }
+//    private void removeNodeFromPath(){
+//        if(pathIndex > 0){
+//            shortestPath[pathIndex] = null;
+//            pathIndex--;
+//        }
+//    }
 
 
     public void printPath() {
+        System.out.println("actual path");
         for(int i = 0; i < shortestPath.length; i++){
-            System.out.println(shortestPath[i]);
-//            if(shortestPath[i] != null) {
-//                System.out.print(shortestPath[i]);
-//                if(i + 1 < shortestPath.length && shortestPath[i + 1] != null) {
-//                    System.out.print(" -> ");
-//                }
-//            } else {
-//                break;
-//            }
+            if(shortestPath[i] != null) {
+                System.out.print(shortestPath[i]);
+                if(i + 1 < shortestPath.length && shortestPath[i + 1] != null) {
+                    System.out.print(" -> ");
+                }
+            } else {
+                break;
+            }
         }
         System.out.println();
     }
-
 }
 
 
