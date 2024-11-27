@@ -1,6 +1,5 @@
 package Algorithm;
 
-
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -8,7 +7,7 @@ import java.util.Queue;
 public class BreadthFirstSearch {
     private GraphNode[] shortestPath;
     private int pathIndex;
-    Graph graph;
+//    Graph graph;
 
     public BreadthFirstSearch(int size) {
         shortestPath = new GraphNode[size];
@@ -38,7 +37,8 @@ public class BreadthFirstSearch {
         addNode(current);
 
         // create queue
-        Queue<GraphNode> queue = new LinkedList<>();
+        Algorithm.Queue queue = new Algorithm.Queue();
+
 
         // checks if current node works
         if(current == target){
@@ -59,9 +59,11 @@ public class BreadthFirstSearch {
                 }
                 if(v == target){
                     System.out.println("in queue found");
+                    /// checks elements of the list
                     while(!queue.isEmpty()){
-                        System.out.println(queue.poll());
+                        System.out.println(queue.remove());
                     }
+                    ///
                     return true;
                 }
             }
@@ -79,12 +81,6 @@ public class BreadthFirstSearch {
     }
 
 
-//    private void removeNodeFromPath(){
-//        if(pathIndex > 0){
-//            shortestPath[pathIndex] = null;
-//            pathIndex--;
-//        }
-//    }
 
 
     public void printPath() {
@@ -102,7 +98,6 @@ public class BreadthFirstSearch {
         System.out.println();
     }
 }
-
 
 
 /// BFS Initialization
