@@ -58,7 +58,7 @@ public class GraphNode {
 
     @Override
     public String toString() {
-        return "(" + xCord + " , " + yCord + ")";
+        return "(" + yCord + " , " + xCord + ")";
     }
 
 }

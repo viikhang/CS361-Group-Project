@@ -59,9 +59,26 @@ public class Main {
         Dijkstra diji = new Dijkstra(graph);
         if(graph.getItemCount() == 1) {
             resetGraphNodes();
+            long startTime = System.currentTimeMillis();
             diji.dijkstraShortestPath(startingNode, graph.getItemNodeList()[0]);
+            long endTime = System.currentTimeMillis();
+            long finalTime = endTime - startTime;
             diji.printPath();
-            System.out.println("voila");
+            System.out.println("\n Time : "+ finalTime);
+
+        } else {
+
+        }
+
+        AStarSearch Astar = new AStarSearch(graph);
+        if(graph.getItemCount() == 1) {
+            resetGraphNodes();
+            long startTime = System.currentTimeMillis();
+            Astar.AStarShortestPath(startingNode, graph.getItemNodeList()[0]);
+            long endTime = System.currentTimeMillis();
+            long finalTime = endTime - startTime;
+            Astar.printPath();
+            System.out.println("\n Time : "+ finalTime);
         } else {
 
         }
