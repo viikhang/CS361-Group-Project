@@ -11,7 +11,7 @@ public class Queue {
         for(GraphNode node : array){
             // might need to check a different way
             if(node != null){
-                System.out.println("Here");
+                //System.out.println("Here");
                 return false;
             }
         }

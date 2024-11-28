@@ -55,14 +55,14 @@ public class BreadthFirstSearch {
                     v.setVisited(true);
                     addNode(v);
                     queue.add(v);
-                    System.out.println(v);
+                    //System.out.println(v);
                 }
                 if(v == target){
-                    System.out.println("in queue found");
+                    //System.out.println("in queue found");
                     /// checks elements of the list
-                    while(!queue.isEmpty()){
-                        System.out.println(queue.remove());
-                    }
+//                    while(!queue.isEmpty()){
+//                        System.out.println(queue.remove());
+//                    }
                     ///
                     return true;
                 }
