@@ -54,6 +54,19 @@ public class Main {
 //            //need to do more than one call
 //        }
 
+        ///BFS
+        System.out.println("before bfs");
+        BreadthFirstSearch bfs = new BreadthFirstSearch(graph.getTotalNodes());
+        if(graph.getItemCount() == 1) {
+            bfs.findShortestPath(startingNode, graph.getItemNodeList()[0]);
+            bfs.printPath();
+        } else {
+            //need to do more than one call
+        }
+        System.out.println("after bfs");
+        ///
+
+
 
         // lil dijkstra for ya
         Dijkstra diji = new Dijkstra(graph);

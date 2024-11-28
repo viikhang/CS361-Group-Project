@@ -1,6 +1,5 @@
 package Algorithm;
 
-
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -8,7 +7,7 @@ import java.util.Queue;
 public class BreadthFirstSearch {
     private GraphNode[] shortestPath;
     private int pathIndex;
-    Graph graph;
+//    Graph graph;
 
     public BreadthFirstSearch(int size) {
         shortestPath = new GraphNode[size];
@@ -38,7 +37,8 @@ public class BreadthFirstSearch {
         addNode(current);
 
         // create queue
-        Queue<GraphNode> queue = new LinkedList<>();
+        Algorithm.Queue queue = new Algorithm.Queue();
+
 
         // checks if current node works
         if(current == target){
@@ -53,11 +53,17 @@ public class BreadthFirstSearch {
             for(GraphNode v : u.getVertices()){
                 if(v != null && !v.isVisited()){
                     v.setVisited(true);
+                    addNode(v);
                     queue.add(v);
-                    addNode(current);
-
+                    System.out.println(v);
                 }
                 if(v == target){
+                    System.out.println("in queue found");
+                    /// checks elements of the list
+                    while(!queue.isEmpty()){
+                        System.out.println(queue.remove());
+                    }
+                    ///
                     return true;
                 }
             }
@@ -75,31 +81,23 @@ public class BreadthFirstSearch {
     }
 
 
-    private void removeNodeFromPath(){
-        if(pathIndex > 0){
-            shortestPath[pathIndex] = null;
-            pathIndex--;
-        }
-    }
 
 
     public void printPath() {
+        System.out.println("actual path");
         for(int i = 0; i < shortestPath.length; i++){
-            System.out.println(shortestPath[i]);
-//            if(shortestPath[i] != null) {
-//                System.out.print(shortestPath[i]);
-//                if(i + 1 < shortestPath.length && shortestPath[i + 1] != null) {
-//                    System.out.print(" -> ");
-//                }
-//            } else {
-//                break;
-//            }
+            if(shortestPath[i] != null) {
+                System.out.print(shortestPath[i]);
+                if(i + 1 < shortestPath.length && shortestPath[i + 1] != null) {
+                    System.out.print(" -> ");
+                }
+            } else {
+                break;
+            }
         }
         System.out.println();
     }
-
 }
-
 
 
 /// BFS Initialization
