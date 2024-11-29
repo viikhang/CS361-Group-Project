@@ -45,14 +45,15 @@ public class Main {
         System.out.println("Depth First Search");
 
         DepthFirstSearch dfs = new DepthFirstSearch(graph.getTotalNodes());
-//
-//        if(graph.getItemCount() == 1) {
-//            dfs.findShortestPath(startingNode, graph.getItemNodeList()[0]);
-//            dfs.printPath();
-//            System.out.println("here");
-//        } else {
-//            //need to do more than one call
-//        }
+
+            if(graph.getItemCount() == 1) {
+                dfs.findShortestPath(startingNode, graph.getItemNodeList()[0]);
+                dfs.printPath();
+                //System.out.println("here");
+            } else {
+            //need to do more than one call
+            }
+ //       }
 
         ///BFS
         System.out.println("before bfs");
@@ -63,7 +64,7 @@ public class Main {
         } else {
             //need to do more than one call
         }
-        System.out.println("after bfs");
+        System.out.println("after bfs\n");
         ///
 
 
