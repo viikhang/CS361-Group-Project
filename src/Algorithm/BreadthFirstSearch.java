@@ -130,8 +130,6 @@ public class BreadthFirstSearch {
             if(i < reverse.length - 1){
                 System.out.print(" -> ");
             }
-
-
         }
 
 

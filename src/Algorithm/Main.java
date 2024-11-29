@@ -56,16 +56,21 @@ public class Main {
             finalTime = endTime - startTime;
             System.out.println("Depth First Search Time (nano seconds): " + finalTime);
         } else { //handling multiple items
+            finalTime = 0;
             GraphNode targetNode = graph.getItemNodeList()[0];
             int index = 0;
             while(index < graph.getItemCount()) {
                 resetGraphNodes();
+                startTime = System.nanoTime();
                 dfs.findShortestPath(startingNode, targetNode);
+                endTime = System.nanoTime();
+                finalTime += endTime - startTime;
                 index++;
                 startingNode = targetNode;
                 targetNode = graph.getItemNodeList()[index];
                 dfs.printPath();
             }
+            System.out.println("Depth First Search Time (nano seconds): " + finalTime);
         }
         System.out.println();
 
@@ -81,17 +86,22 @@ public class Main {
             finalTime = endTime - startTime;
             System.out.println("Breadth First Search Time (nano seconds): " + finalTime);
         } else { //handle multiple items
+            finalTime = 0;
             startingNode = graph.getStartingNode();
             GraphNode targetNode = graph.getItemNodeList()[0];
             int index = 0;
             while (index < graph.getItemCount()) {
                 resetGraphNodes();
+                startTime = System.nanoTime();
                 bfs.findShortestPath(startingNode, targetNode);
+                endTime = System.nanoTime();
+                finalTime += endTime - startTime;
                 index++;
                 startingNode = targetNode;
                 targetNode = graph.getItemNodeList()[index];
                 bfs.printPath();
             }
+            System.out.println("Breadth First Search Time (nano seconds): " + finalTime);
         }
 
         System.out.println();
@@ -126,6 +136,17 @@ public class Main {
         } else {
 
         }
+
+
+        //TODO, TEST THIS
+        Prims prims = new Prims(graph);
+        if(graph.getItemCount() == 1) {
+            prims.primMST(startingNode);
+            prims.createPath(graph.getItemNodeList()[0]);
+
+        }
+
+
     }
 
 
