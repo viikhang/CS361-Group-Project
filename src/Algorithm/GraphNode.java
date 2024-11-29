@@ -12,7 +12,7 @@ public class GraphNode {
     public GraphNode(int xCord, int yCord) {
         this.xCord = xCord;
         this.yCord = yCord;
-        for(int i = 0; i < 4; i++){
+        for (int i = 0; i < 4; i++) {
             vertices[i] = null;
         }
     }
@@ -41,17 +41,18 @@ public class GraphNode {
         this.visited = visited;
     }
 
-    public int getRow(){
+    public int getRow() {
         return xCord;
     }
 
-    public int getCol(){
+    public int getCol() {
         return yCord;
     }
 
     public int getColor() {
         return color;
     }
+
     public void setColor(int color) {
         this.color = color;
     }

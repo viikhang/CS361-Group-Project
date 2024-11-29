@@ -19,16 +19,17 @@ public class BreadthFirstSearch {
     }
 
     public GraphNode[] BFS(GraphNode start, GraphNode target) {
-        if(bfsHelper(start,target,shortestPath)){
+        if (bfsHelper(start, target, shortestPath)) {
             return shortestPath;
         }
 
         return null; //no path was found
     }
+
     public boolean bfsHelper(GraphNode current, GraphNode target, GraphNode[] shortestPath) {
         // checks if current node is null
         //might remove
-        if(current ==  null){
+        if (current == null) {
             return false;
         }
 
@@ -41,23 +42,23 @@ public class BreadthFirstSearch {
 
 
         // checks if current node works
-        if(current == target){
+        if (current == target) {
             return true;
         }
         // adds current to the queue
         queue.add(current);
 
 
-        while(!queue.isEmpty()){
+        while (!queue.isEmpty()) {
             GraphNode u = queue.remove();
-            for(GraphNode v : u.getVertices()){
-                if(v != null && !v.isVisited()){
+            for (GraphNode v : u.getVertices()) {
+                if (v != null && !v.isVisited()) {
                     v.setVisited(true);
                     addNode(v);
                     queue.add(v);
                     //System.out.println(v);
                 }
-                if(v == target){
+                if (v == target) {
                     //System.out.println("in queue found");
                     /// checks elements of the list
 //                    while(!queue.isEmpty()){
@@ -73,22 +74,19 @@ public class BreadthFirstSearch {
     }
 
 
-    private void addNode(GraphNode node){
-        if(pathIndex < shortestPath.length){
+    private void addNode(GraphNode node) {
+        if (pathIndex < shortestPath.length) {
             shortestPath[pathIndex] = node;
             pathIndex++;
         }
     }
 
 
-
-
     public void printPath() {
-        System.out.println("actual path");
-        for(int i = 0; i < shortestPath.length; i++){
-            if(shortestPath[i] != null) {
+        for (int i = 0; i < shortestPath.length; i++) {
+            if (shortestPath[i] != null) {
                 System.out.print(shortestPath[i]);
-                if(i + 1 < shortestPath.length && shortestPath[i + 1] != null) {
+                if (i + 1 < shortestPath.length && shortestPath[i + 1] != null) {
                     System.out.print(" -> ");
                 }
             } else {

@@ -12,6 +12,7 @@ public class Dijkstra {
     /**
      * Constructor for Dijkstra initialize the structures we need for
      * traversal.
+     *
      * @param graph- Graph we are traversing
      */
     public Dijkstra(Graph graph) {
@@ -32,6 +33,7 @@ public class Dijkstra {
         }
 
     }
+
     /*
         Actual calling of algorithm to traverse graph given start and target
      */
@@ -44,7 +46,7 @@ public class Dijkstra {
      * this is a greedy approach and chooses traversal based on
      * the lowest weight edge of every visited node.
      *
-     * @param start- starting node
+     * @param start-  starting node
      * @param target- ending node
      * @return Shortest Path
      */
@@ -105,20 +107,19 @@ public class Dijkstra {
     }
 
     /**
-     *
      * @param predecessors- list of nodes taken based on x,y of the node
-     * @param start- starting node
-     * @param target- ending node
+     * @param start-        starting node
+     * @param target-       ending node
      * @return - Shortest path
      */
-    private GraphNode[] pathBuilder(GraphNode[][]predecessors, GraphNode start, GraphNode target){
+    private GraphNode[] pathBuilder(GraphNode[][] predecessors, GraphNode start, GraphNode target) {
         GraphNode[] path = new GraphNode[shortestPath.length];// return array
         GraphNode curr = target;// start from ending
         pathIndex = 0;
         //start from target and follow pred backwards to start.
-        while(curr != null){
-            path[pathIndex++]= curr;// add current node
-            if(curr == start){// we reached start
+        while (curr != null) {
+            path[pathIndex++] = curr;// add current node
+            if (curr == start) {// we reached start
                 break;
             }
             // new current is node previous to the current node
@@ -126,10 +127,10 @@ public class Dijkstra {
 
         }
         //reverse path
-        for(int i =0; i< pathIndex/2; i++){
+        for (int i = 0; i < pathIndex / 2; i++) {
             GraphNode temp = path[i];
-            path[i] = path[pathIndex - i -1];
-            path[pathIndex -i -1] = temp;
+            path[i] = path[pathIndex - i - 1];
+            path[pathIndex - i - 1] = temp;
         }
 
         return path;
@@ -139,10 +140,10 @@ public class Dijkstra {
      * Print path loops through shortest and prints node's x,y value on graph
      */
     public void printPath() {
-        for(int i = 0; i < shortestPath.length; i++){
-            if(shortestPath[i] != null) {
+        for (int i = 0; i < shortestPath.length; i++) {
+            if (shortestPath[i] != null) {
                 System.out.print(shortestPath[i]);
-                if(i +1 < shortestPath.length && shortestPath[i + 1] != null) {
+                if (i + 1 < shortestPath.length && shortestPath[i + 1] != null) {
                     System.out.print(" -> ");
                 }
             } else {

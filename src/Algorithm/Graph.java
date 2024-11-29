@@ -33,7 +33,7 @@ public class Graph {
         //initialize board of graphNodes
         for (int i = 0; i < rowSize; i++) {
             for (int j = 0; j < colSize; j++) {
-                GraphNode node = new GraphNode(i,j);
+                GraphNode node = new GraphNode(i, j);
                 node.setCellType(board[i][j]);
                 adjList[i][j] = node;
             }
@@ -71,9 +71,9 @@ public class Graph {
         }
     }
 
-    private void addNode(GraphNode node){
-        for(int i = 0; i < totalNodes; i++){
-            if(nodeList[i] == null){
+    private void addNode(GraphNode node) {
+        for (int i = 0; i < totalNodes; i++) {
+            if (nodeList[i] == null) {
                 nodeList[i] = node;
                 break;
             }
@@ -125,7 +125,6 @@ public class Graph {
             node.getVertices()[2] = nodeBoard[row][col + 1];
             node.getNodeToVertexCost()[2] = 1;
         }
-
 
 
         // - - -

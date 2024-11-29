@@ -28,79 +28,90 @@ public class Main {
                     String[] values = line.split(" ");
                     for (int j = 0; j < width; j++) {
                         CellType type = convert(values[j].charAt(0));
-                                grid[i][j] = type;
+                        grid[i][j] = type;
                     }
                 }
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         }
-        //after creating the 2d array, call searching methods, pass the graph
-        // and the total amount of items that are created
         graph = new Graph(grid);
-        //pass graph array to each algorithm and then
         printBoard();
+        System.out.println();
         GraphNode startingNode = graph.getStartingNode();
 
-        System.out.println("Depth First Search");
 
+        long startTime;
+        long endTime;
+        long finalTime;
+
+
+        System.out.println("Depth First Search Algorithm");
         DepthFirstSearch dfs = new DepthFirstSearch(graph.getTotalNodes());
-
-            if(graph.getItemCount() == 1) {
-                dfs.findShortestPath(startingNode, graph.getItemNodeList()[0]);
-                dfs.printPath();
-                //System.out.println("here");
-            } else {
+        if (graph.getItemCount() == 1) {
+            startTime = System.nanoTime();
+            dfs.findShortestPath(startingNode, graph.getItemNodeList()[0]);
+            endTime = System.nanoTime();
+            dfs.printPath();
+            finalTime = endTime - startTime;
+            System.out.println("Depth First Search Time (nano seconds): " + finalTime);
+        } else {
             //need to do more than one call
-            }
- //       }
+        }
+        System.out.println();
 
-        ///BFS
-        System.out.println("before bfs");
+
+        System.out.println("Breadth First Search Algorithm");
         BreadthFirstSearch bfs = new BreadthFirstSearch(graph.getTotalNodes());
-        if(graph.getItemCount() == 1) {
+        resetGraphNodes();
+        if (graph.getItemCount() == 1) {
+            startTime = System.nanoTime();
             bfs.findShortestPath(startingNode, graph.getItemNodeList()[0]);
+            endTime = System.nanoTime();
             bfs.printPath();
+            finalTime = endTime - startTime;
+            System.out.println("Breadth First Search Time (nano seconds): " + finalTime);
         } else {
             //need to do more than one call
         }
-        System.out.println("after bfs\n");
-        ///
+
+        System.out.println();
 
 
-
-        // lil dijkstra for ya
+        System.out.println("Dijkstra Algorithm");
         Dijkstra diji = new Dijkstra(graph);
-        if(graph.getItemCount() == 1) {
-            resetGraphNodes();
-            long startTime = System.currentTimeMillis();
+        resetGraphNodes();
+        if (graph.getItemCount() == 1) {
+            startTime = System.nanoTime();
             diji.dijkstraShortestPath(startingNode, graph.getItemNodeList()[0]);
-            long endTime = System.currentTimeMillis();
-            long finalTime = endTime - startTime;
+            endTime = System.nanoTime();
+            finalTime = endTime - startTime;
             diji.printPath();
-            System.out.println("\n Time : "+ finalTime);
-
+            System.out.println("Dijkstra Time (nano seconds): " + finalTime);
         } else {
 
         }
 
+        System.out.println();
+
+        System.out.println("A* Algorithm");
         AStarSearch Astar = new AStarSearch(graph);
-        if(graph.getItemCount() == 1) {
-            resetGraphNodes();
-            long startTime = System.currentTimeMillis();
+        resetGraphNodes();
+        if (graph.getItemCount() == 1) {
+            startTime = System.nanoTime();
             Astar.AStarShortestPath(startingNode, graph.getItemNodeList()[0]);
-            long endTime = System.currentTimeMillis();
-            long finalTime = endTime - startTime;
+            endTime = System.nanoTime();
+            finalTime = endTime - startTime;
             Astar.printPath();
-            System.out.println("\n Time : "+ finalTime);
+            System.out.println("A* Search Time (nano seconds): " + finalTime);
         } else {
 
         }
     }
 
 
-    private static void resetGraphNodes(){
-        for(int i = 0; i < graph.getNodeList().length; i++ ){
+    private static void resetGraphNodes() {
+        for (int i = 0; i < graph.getNodeList().length; i++) {
             graph.getNodeList()[i].setVisited(false);
         }
     }
@@ -115,9 +126,10 @@ public class Main {
             return CellType.EMPTY;
         }
     }
-    private static void printBoard(){
-        for(int i = 0 ; i < grid.length;i++ ){
-            for(int j = 0; j < grid[0].length;j++){
+
+    private static void printBoard() {
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
                 System.out.print(grid[i][j]);
                 System.out.print(" ");
             }

@@ -14,6 +14,7 @@ public class AStarSearch {
 
     /**
      * Constructor initializing structures for A star traversal
+     *
      * @param graph
      */
     public AStarSearch(Graph graph) {
@@ -36,6 +37,7 @@ public class AStarSearch {
         }
 
     }
+
     // Actual algorithm call
     public void AStarShortestPath(GraphNode start, GraphNode target) {
         shortestPath = AStar(start, target);
@@ -46,10 +48,11 @@ public class AStarSearch {
      * AStar is modified BFS, and is a greedy algorithm making decisions based
      * on actual gCost, and the heuristic cost totaled in Fcost
      * the Heuristic cost is done on the fly and utilizes a manhattan distance
-     *
+     * <p>
      * This is used because our graph does not use diagonal edges so this is
      * a more accurate way of collecting distance to nodes
-     * @param start- starting node
+     *
+     * @param start-  starting node
      * @param target- target node
      * @return- shortest path
      */
@@ -86,8 +89,8 @@ public class AStarSearch {
                         target(x2,y2) current(x1,y1)
                         Hcost = |x1-x2| - |y1 - y2|
                      */
-                    int newHCost = abs(neighbor.getRow()- target.getRow()) +
-                            abs(neighbor.getCol()- target.getCol());
+                    int newHCost = abs(neighbor.getRow() - target.getRow()) +
+                            abs(neighbor.getCol() - target.getCol());
                     // same as distances in dijkstras algorithm and is actual dist
                     int updatedGCost = gCost[current.getRow()][current.getCol()]
                             + current.getNodeToVertexCost()[i];
@@ -118,22 +121,22 @@ public class AStarSearch {
     /*
     just absolute value function
      */
-    private int abs( int c ){
+    private int abs(int c) {
         // if negative value
-        if (c < 0){
+        if (c < 0) {
             return -1 * c;
         }
         return c;
     }
 
-    private GraphNode[] pathBuilder(GraphNode[][]predecessors, GraphNode start, GraphNode target){
+    private GraphNode[] pathBuilder(GraphNode[][] predecessors, GraphNode start, GraphNode target) {
         GraphNode[] path = new GraphNode[shortestPath.length];// return array
         GraphNode curr = target;// start from ending
         pathIndex = 0;
         //start from target and follow pred backwards to start.
-        while(curr != null){
-            path[pathIndex++]= curr;// add current node
-            if(curr == start){// we reached start
+        while (curr != null) {
+            path[pathIndex++] = curr;// add current node
+            if (curr == start) {// we reached start
                 break;
             }
             // new current is node previous to the current node
@@ -141,10 +144,10 @@ public class AStarSearch {
 
         }
         //reverse path
-        for(int i =0; i< pathIndex/2; i++){
+        for (int i = 0; i < pathIndex / 2; i++) {
             GraphNode temp = path[i];
-            path[i] = path[pathIndex - i -1];
-            path[pathIndex -i -1] = temp;
+            path[i] = path[pathIndex - i - 1];
+            path[pathIndex - i - 1] = temp;
         }
 
         return path;
@@ -155,10 +158,10 @@ public class AStarSearch {
      * Print path loops through shortest and prints node's x,y value on graph
      */
     public void printPath() {
-        for(int i = 0; i < shortestPath.length; i++){
-            if(shortestPath[i] != null) {
+        for (int i = 0; i < shortestPath.length; i++) {
+            if (shortestPath[i] != null) {
                 System.out.print(shortestPath[i]);
-                if(i +1 < shortestPath.length && shortestPath[i + 1] != null) {
+                if (i + 1 < shortestPath.length && shortestPath[i + 1] != null) {
                     System.out.print(" -> ");
                 }
             } else {

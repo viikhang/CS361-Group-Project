@@ -7,10 +7,11 @@ public class Queue {
     public Queue() {
         array = new GraphNode[1000];
     }
-    public boolean isEmpty(){
-        for(GraphNode node : array){
+
+    public boolean isEmpty() {
+        for (GraphNode node : array) {
             // might need to check a different way
-            if(node != null){
+            if (node != null) {
                 //System.out.println("Here");
                 return false;
             }
@@ -18,16 +19,16 @@ public class Queue {
         return true;
     }
 
-    public void add(GraphNode node){
-        for(int i = 0; i < array.length; i++){
-            if(array[i] == null){
+    public void add(GraphNode node) {
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == null) {
                 array[i] = node;
                 break;
             }
         }
     }
 
-    public GraphNode remove(){
+    public GraphNode remove() {
         GraphNode node = array[0];
         createNewArray();
         return node;
@@ -35,7 +36,7 @@ public class Queue {
 
     private void createNewArray() {
         GraphNode[] newArray = new GraphNode[1000];
-        for(int i = 1; i < array.length; i++) {
+        for (int i = 1; i < array.length; i++) {
             newArray[i - 1] = array[i];
         }
         array = newArray;
@@ -51,6 +52,6 @@ public class Queue {
 //        for(int i = 0; i < newArray.length; i++){
 //            array[i] = newArray[i+1];
 //        }
-    }
+}
 
 
