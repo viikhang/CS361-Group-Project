@@ -7,14 +7,18 @@ import java.util.Queue;
 public class BreadthFirstSearch {
     private GraphNode[] shortestPath;
     private int pathIndex;
-//    Graph graph;
+
+    private int size;
 
     public BreadthFirstSearch(int size) {
+        this.size = size;
         shortestPath = new GraphNode[size];
         pathIndex = 0;
     }
 
     public void findShortestPath(GraphNode start, GraphNode target) {
+        pathIndex = 0;
+        shortestPath = new GraphNode[size];
         shortestPath = BFS(start, target);
     }
 
@@ -83,6 +87,7 @@ public class BreadthFirstSearch {
 
 
     public void printPath() {
+        System.out.println("actual path");
         for (int i = 0; i < shortestPath.length; i++) {
             if (shortestPath[i] != null) {
                 System.out.print(shortestPath[i]);

@@ -10,6 +10,7 @@ public class DepthFirstSearch {
     }
 
     public void findShortestPath(GraphNode start, GraphNode target) {
+        pathIndex = 0;
         shortestPath = DFS(start, target);
     }
 

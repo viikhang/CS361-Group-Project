@@ -55,8 +55,17 @@ public class Main {
             dfs.printPath();
             finalTime = endTime - startTime;
             System.out.println("Depth First Search Time (nano seconds): " + finalTime);
-        } else {
-            //need to do more than one call
+        } else { //handling multiple items
+            GraphNode targetNode = graph.getItemNodeList()[0];
+            int index = 0;
+            while(index < graph.getItemCount()) {
+                resetGraphNodes();
+                dfs.findShortestPath(startingNode, targetNode);
+                index++;
+                startingNode = targetNode;
+                targetNode = graph.getItemNodeList()[index];
+                dfs.printPath();
+            }
         }
         System.out.println();
 
@@ -71,8 +80,18 @@ public class Main {
             bfs.printPath();
             finalTime = endTime - startTime;
             System.out.println("Breadth First Search Time (nano seconds): " + finalTime);
-        } else {
-            //need to do more than one call
+        } else { //handle multiple items
+            startingNode = graph.getStartingNode();
+            GraphNode targetNode = graph.getItemNodeList()[0];
+            int index = 0;
+            while (index < graph.getItemCount()) {
+                resetGraphNodes();
+                bfs.findShortestPath(startingNode, targetNode);
+                index++;
+                startingNode = targetNode;
+                targetNode = graph.getItemNodeList()[index];
+                bfs.printPath();
+            }
         }
 
         System.out.println();
