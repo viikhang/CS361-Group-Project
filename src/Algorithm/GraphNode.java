@@ -1,6 +1,9 @@
 package Algorithm;
 
 public class GraphNode {
+
+    private GraphNode parentNode;
+
     private CellType cellType = CellType.EMPTY;
     private final GraphNode[] vertices = new GraphNode[4];
     private final int[] nodeToVertexCost = new int[4];
@@ -17,6 +20,13 @@ public class GraphNode {
         }
     }
 
+    public GraphNode getParentNode() {
+        return parentNode;
+    }
+
+    public void setParentNode(GraphNode parentNode) {
+        this.parentNode = parentNode;
+    }
     public void setCellType(CellType cellType) {
         this.cellType = cellType;
     }
