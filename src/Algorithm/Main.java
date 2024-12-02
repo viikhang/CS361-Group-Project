@@ -46,6 +46,10 @@ public class Main {
         long finalTime;
 
 
+        /**
+         * Our Depth First Search Algorithm approach to finding a shortest path for
+         * both single and multiple item paths, timed in NANO seconds.
+         */
         System.out.println("Depth First Search Algorithm");
         DepthFirstSearch dfs = new DepthFirstSearch(graph.getTotalNodes());
         if (graph.getItemCount() == 1) {
@@ -74,7 +78,10 @@ public class Main {
         }
         System.out.println();
 
-
+        /**
+         * Our Breadth First Search Algorithm approach to finding a shortest path for
+         * both single and multiple item paths, timed in NANO seconds.
+         */
         System.out.println("Breadth First Search Algorithm");
         BreadthFirstSearch bfs = new BreadthFirstSearch(graph.getTotalNodes());
         resetGraphNodes();
@@ -104,9 +111,11 @@ public class Main {
             System.out.println("Breadth First Search Time (nano seconds): " + finalTime);
         }
 
+        /**
+         * Our Dijkstra's Search Algorithm approach to finding a shortest path for
+         * both single and multiple item paths, timed in NANO seconds.
+         */
         System.out.println();
-
-
         System.out.println("Dijkstra Algorithm");
         Dijkstra diji = new Dijkstra(graph);
         resetGraphNodes();
@@ -137,8 +146,11 @@ public class Main {
 
         }
 
+        /**
+         * Our A* Search Algorithm approach to finding a shortest path for
+         * both single and multiple item paths, timed in NANO seconds.
+         */
         System.out.println();
-
         System.out.println("A* Algorithm");
         AStarSearch Astar = new AStarSearch(graph);
         resetGraphNodes();
@@ -169,10 +181,12 @@ public class Main {
 
         }
 
-
-        System.out.println(" ");
+        /**
+         * Our Modified Prim Search Algorithm approach to finding a shortest path for
+         * both single and multiple item paths, timed in NANO seconds.
+         */
+        System.out.println();
         System.out.println("Modified Prims Algorithm");
-        //TODO, TEST THIS
         Prims prims = new Prims(graph);
         resetGraphNodes();
         if(graph.getItemCount() == 1) {
@@ -207,13 +221,21 @@ public class Main {
 
 
 
-
+    /**
+        For every node in the graph reset its visited nodes to false for next
+        Algorithm's use on the graph
+     */
     private static void resetGraphNodes() {
         for (int i = 0; i < graph.getNodeList().length; i++) {
             graph.getNodeList()[i].setVisited(false);
         }
     }
 
+    /**
+     * Convert char to cellType
+     * @param input- input char from file
+     * @return- cellType
+     */
     private static CellType convert(char input) {
         if (input == 'I') {
             itemsFound++;
@@ -225,6 +247,9 @@ public class Main {
         }
     }
 
+    /**
+     * Print every cell type of board to get the visual representation
+     */
     private static void printBoard() {
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[0].length; j++) {
