@@ -1,90 +1,97 @@
 package Algorithm;
 
 public class Prims {
-    private Graph graph;
     private GraphNode[] shortestPath;
-    private GraphNode[] parentNodes;
-    private int[][] distances;// hold weights for node location on graph
-    private GraphNode[][] predecessors;
-
-    private int verticesCount;
     private int size;
     public Prims(Graph graph) {
-        int rows = graph.getBoard().length;
-        int cols = graph.getBoard()[0].length;
-        predecessors = new GraphNode[rows][cols];
-        distances = new int[rows][cols];
         size = graph.getTotalNodes();
         shortestPath = new GraphNode[size];
+    }
 
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                distances[i][j] = Integer.MAX_VALUE;
+    /**
+     * This function will build a MST from the start node, adding the edges to
+     * the heap as long as they are not to unvisited nodes. The actual mst is
+     * not held in a specific data structure, rather every "child" node to current
+     * has its setParentNode( current ); this way when we finally reach the target
+     * there is uninterrupted path to start. This will find the ABSOLUTE shortest
+     * path however it searched through many adjacent nodes to get there making it
+     * super slow.
+     *
+     * @param start- starting node
+     * @param target- ending node
+     * @return shortest path
+     */
+    public GraphNode[]  primMST(GraphNode start, GraphNode target) {
+        GraphNode current = start;
+        current.setParentNode(null);
+        MinHeap heap = new MinHeap(size * 4);// over-estimate of edges
+        heap.insert(current, 0);// start at current
+
+        while (current!= target){
+            // find new lowest edge
+            current = heap.extractMin();
+            // already visited
+            if (current.isVisited()){ continue;}
+
+            current.setVisited(true);// now visiting
+
+            for(int i =0; i < 4; i++){// all adjacent to current
+                GraphNode node = current.getVertices()[i];// temporary node
+                // if its not valid edge
+                if (node == null || node.isVisited()){ continue;}
+                // if valid set new edge as child of current
+                node.setParentNode(current);
+                // insert edge
+                heap.insert(node, current.getNodeToVertexCost()[i]);
 
             }
         }
+        // we found a path!
+        createPath(current);// build path
+        return shortestPath;// return built path
 
     }
-    private void createMst(GraphNode start, GraphNode goal) {
-        primMST(start);
-    }
-    public void primMST(GraphNode start) {
-        //shortestPath[0] = start;
-        start.setParentNode(null);
 
-        MinHeap heap =  new MinHeap(size);
-        heap.insert(start,0);
-        while(!heap.isEmpty()){
-            GraphNode current = heap.extractMin();
+    /**
+     * create path goes from target and retraces paths built from target
+     * until we reach the start -> this path will need to be reversed
+     *
+     * @param target- ending location
+     */
 
-            if(current.isVisited()){
-                continue;
-            }
-            current.setVisited(true);
-            //add the current node to MST
-
-            //process neighbors of current node
-            for(GraphNode neighbor : current.getVertices()) {
-                //get edge weight from current node to neighbor node
-                int distance = 1; //change this to some actual weight value, if default wasn't 1
-                //find the smallest
-                if(neighbor != null && !neighbor.isVisited()) {
-                    neighbor.setParentNode(current);
-                    //since the weight for all nodes is only 1, we can hard code it
-                    heap.insert(neighbor,distance);
-                }
-            }
-        }
-    }
-
-    public void createPath(GraphNode target){
-
+    public void createPath(GraphNode target) {
+        GraphNode current = target;
         int index = 0;
-        GraphNode temp = target;
-        while(temp != null) {
-            shortestPath[index] = temp;
-            temp = temp.getParentNode();
+        while (current.getParentNode() != null) {
+            if (index >= shortestPath.length) {// Graph is disconnected from start
+                throw new ArrayIndexOutOfBoundsException("DISCONNECTED GRAPH");
+            }
+            shortestPath[index] = current;
             index++;
+            current = current.getParentNode();
+        }
+        // reverse
+        for(int i = 0; i < index /2; i++){
+            GraphNode swap = shortestPath[i];
+            shortestPath[i] = shortestPath[index - i - 1];
+            shortestPath[index - i - 1] = swap;
         }
 
-
-        int start = 0;
-        int end = index -1;
-        while(start < end) {
-            temp = shortestPath[start];
-            shortestPath[start] = shortestPath[end];
-            shortestPath[end] = temp;
-            start++;
-            end--;
-        }
-
-        for (int i = 0; i < index; i++) {
-            System.out.print(shortestPath[i]);
-            if(i < index - 1){
-                System.out.print(" -> ");
+    }
+    /**
+     * Print path loops through shortest and prints node's x,y value on graph
+     */
+    public void printPath() {
+        for (int i = 0; i < shortestPath.length; i++) {
+            if (shortestPath[i] != null) {
+                System.out.print(shortestPath[i]);
+                if (i + 1 < shortestPath.length && shortestPath[i + 1] != null) {
+                    System.out.print(" -> ");
+                }
+            } else {
+                break;
             }
         }
-
-        //then need to reverse the path
+        System.out.println();
     }
 }

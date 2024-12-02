@@ -116,8 +116,24 @@ public class Main {
             endTime = System.nanoTime();
             finalTime = endTime - startTime;
             diji.printPath();
-            System.out.println("Dijkstra Time (nano seconds): " + finalTime);
+            System.out.println("Dijkstra Search Time (nano seconds): " + finalTime);
         } else {
+            finalTime = 0;
+            startingNode = graph.getStartingNode();
+            GraphNode targetNode = graph.getItemNodeList()[0];
+            int index = 0;
+            while (index < graph.getItemCount()) {
+                resetGraphNodes();
+                startTime = System.nanoTime();
+                diji.dijkstraShortestPath(startingNode, targetNode);
+                endTime = System.nanoTime();
+                finalTime += endTime - startTime;
+                index++;
+                startingNode = targetNode;
+                targetNode = graph.getItemNodeList()[index];
+                diji.printPath();
+            }
+            System.out.println("Dijkstra Search Time (nano seconds): " + finalTime);
 
         }
 
@@ -134,20 +150,62 @@ public class Main {
             Astar.printPath();
             System.out.println("A* Search Time (nano seconds): " + finalTime);
         } else {
+            finalTime = 0;
+            startingNode = graph.getStartingNode();
+            GraphNode targetNode = graph.getItemNodeList()[0];
+            int index = 0;
+            while (index < graph.getItemCount()) {
+                resetGraphNodes();
+                startTime = System.nanoTime();
+                Astar.AStarShortestPath(startingNode, targetNode);
+                endTime = System.nanoTime();
+                finalTime += endTime - startTime;
+                index++;
+                startingNode = targetNode;
+                targetNode = graph.getItemNodeList()[index];
+                Astar.printPath();
+            }
+            System.out.println("A* Search Time (nano seconds): " + finalTime);
 
         }
 
 
+        System.out.println(" ");
+        System.out.println("Modified Prims Algorithm");
         //TODO, TEST THIS
         Prims prims = new Prims(graph);
+        resetGraphNodes();
         if(graph.getItemCount() == 1) {
-            prims.primMST(startingNode);
-            prims.createPath(graph.getItemNodeList()[0]);
+            startTime = System.nanoTime();
+            prims.primMST(startingNode,graph.getItemNodeList()[0]);
+            endTime = System.nanoTime();
+            finalTime = endTime - startTime;
+            prims.printPath();
+            System.out.println(" Prims Search Time (nano seconds): "+ finalTime);
 
         }
+        else{
+            finalTime = 0;
+            startingNode = graph.getStartingNode();
+            GraphNode targetNode = graph.getItemNodeList()[0];
+            int index = 0;
+            while (index < graph.getItemCount()) {
+                resetGraphNodes();
+                startTime = System.nanoTime();
+                prims.primMST(startingNode, targetNode);
+                endTime = System.nanoTime();
+                finalTime += endTime - startTime;
+                index++;
+                startingNode = targetNode;
+                targetNode = graph.getItemNodeList()[index];
+                prims.printPath();
 
-
+            }
+            System.out.println("Prims search Time (nano seconds): " + finalTime);
+        }
     }
+
+
 
 
     private static void resetGraphNodes() {
