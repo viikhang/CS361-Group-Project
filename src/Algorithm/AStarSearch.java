@@ -11,6 +11,7 @@ public class AStarSearch implements TraversalAlgorithm{
     private int pathIndex;// index for rebuilding
 
     private int size;// total nodes
+    private Graph localGraph;
 
     /**
      * Constructor initializing structures for A star traversal
@@ -26,6 +27,7 @@ public class AStarSearch implements TraversalAlgorithm{
         predecessors = new GraphNode[rows][cols];
         gCost = new int[rows][cols];
         fCost = new int[rows][cols];
+        localGraph = graph;
 
         // Astar uses two arrays for holding weights
         for (int i = 0; i < rows; i++) {
@@ -38,7 +40,7 @@ public class AStarSearch implements TraversalAlgorithm{
 
     }
     @Override
-    public GraphNode[] findShortest(GraphNode start, GraphNode target){
+    public GraphNode[] findShortest(Graph localGraph,GraphNode start, GraphNode target){
         return AStarShortestPath(start,target);
     }
 

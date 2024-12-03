@@ -51,10 +51,10 @@ public class Main {
          * both single and multiple item paths, timed in NANO seconds.
          */
         System.out.println("Depth First Search Algorithm");
-        DepthFirstSearch dfs = new DepthFirstSearch(graph.getTotalNodes());
+        DepthFirstSearch dfs = new DepthFirstSearch(graph.getTotalNodes(),graph);
         if (graph.getItemCount() == 1) {
             startTime = System.nanoTime();
-            dfs.findShortest(startingNode, graph.getItemNodeList()[0]);
+            dfs.findShortest(graph,startingNode, graph.getItemNodeList()[0]);
             endTime = System.nanoTime();
             dfs.printPath();
             finalTime = endTime - startTime;
@@ -66,7 +66,7 @@ public class Main {
             while(index < graph.getItemCount()) {
                 resetGraphNodes();
                 startTime = System.nanoTime();
-                dfs.findShortest(startingNode, targetNode);
+                dfs.findShortest(graph,startingNode, targetNode);
                 endTime = System.nanoTime();
                 finalTime += endTime - startTime;
                 index++;
@@ -83,11 +83,11 @@ public class Main {
          * both single and multiple item paths, timed in NANO seconds.
          */
         System.out.println("Breadth First Search Algorithm");
-        BreadthFirstSearch bfs = new BreadthFirstSearch(graph.getTotalNodes());
+        BreadthFirstSearch bfs = new BreadthFirstSearch(graph.getTotalNodes(),graph);
         resetGraphNodes();
         if (graph.getItemCount() == 1) {
             startTime = System.nanoTime();
-            bfs.findShortest(startingNode, graph.getItemNodeList()[0]);
+            bfs.findShortest(graph,startingNode, graph.getItemNodeList()[0]);
             endTime = System.nanoTime();
             bfs.printPath();
             finalTime = endTime - startTime;
@@ -100,7 +100,7 @@ public class Main {
             while (index < graph.getItemCount()) {
                 resetGraphNodes();
                 startTime = System.nanoTime();
-                bfs.findShortest(startingNode, targetNode);
+                bfs.findShortest(graph,startingNode, targetNode);
                 endTime = System.nanoTime();
                 finalTime += endTime - startTime;
                 index++;
@@ -121,7 +121,7 @@ public class Main {
         resetGraphNodes();
         if (graph.getItemCount() == 1) {
             startTime = System.nanoTime();
-            diji.findShortest(startingNode, graph.getItemNodeList()[0]);
+            diji.findShortest(graph,startingNode, graph.getItemNodeList()[0]);
             endTime = System.nanoTime();
             finalTime = endTime - startTime;
             diji.printPath();
@@ -134,7 +134,7 @@ public class Main {
             while (index < graph.getItemCount()) {
                 resetGraphNodes();
                 startTime = System.nanoTime();
-                diji.findShortest(startingNode, targetNode);
+                diji.findShortest(graph,startingNode, targetNode);
                 endTime = System.nanoTime();
                 finalTime += endTime - startTime;
                 index++;
@@ -156,7 +156,7 @@ public class Main {
         resetGraphNodes();
         if (graph.getItemCount() == 1) {
             startTime = System.nanoTime();
-            Astar.findShortest(startingNode, graph.getItemNodeList()[0]);
+            Astar.findShortest(graph,startingNode, graph.getItemNodeList()[0]);
             endTime = System.nanoTime();
             finalTime = endTime - startTime;
             Astar.printPath();
@@ -169,7 +169,7 @@ public class Main {
             while (index < graph.getItemCount()) {
                 resetGraphNodes();
                 startTime = System.nanoTime();
-                Astar.findShortest(startingNode, targetNode);
+                Astar.findShortest(graph,startingNode, targetNode);
                 endTime = System.nanoTime();
                 finalTime += endTime - startTime;
                 index++;
@@ -191,7 +191,7 @@ public class Main {
         resetGraphNodes();
         if(graph.getItemCount() == 1) {
             startTime = System.nanoTime();
-            prims.findShortest(startingNode,graph.getItemNodeList()[0]);
+            prims.findShortest(graph,startingNode,graph.getItemNodeList()[0]);
             endTime = System.nanoTime();
             finalTime = endTime - startTime;
             prims.printPath();
@@ -206,7 +206,7 @@ public class Main {
             while (index < graph.getItemCount()) {
                 resetGraphNodes();
                 startTime = System.nanoTime();
-                prims.findShortest(startingNode, targetNode);
+                prims.findShortest(graph,startingNode,targetNode);
                 endTime = System.nanoTime();
                 finalTime += endTime - startTime;
                 index++;
@@ -217,11 +217,13 @@ public class Main {
             }
             System.out.println("Prims search Time (nano seconds): " + finalTime);
         }
-
+        System.out.println();
+        System.out.println();
         resetGraphNodes();
 
         // Robot Time for every Algorithm
         //DFS Robot
+
         Robot DFSrobot = new Robot(graph,dfs);
         System.out.println(" DFS Robot");
         DFSrobot.runRobot(graph.getItemNodeList(),graph.getStartingNode());
@@ -234,6 +236,7 @@ public class Main {
         BFSrobot.runRobot(graph.getItemNodeList(),graph.getStartingNode());
         BFSrobot.printPath();
 
+        /*
         //Dijkstra robot
         resetGraphNodes();
         Robot DIJKSTRArobot = new Robot(graph,diji);
@@ -241,6 +244,9 @@ public class Main {
         DIJKSTRArobot.runRobot(graph.getItemNodeList(),graph.getStartingNode());
         DIJKSTRArobot.printPath();
 
+
+         */
+        /*
         //A star robot
         resetGraphNodes();
         Robot ASTARrobot = new Robot(graph,Astar);
@@ -248,6 +254,8 @@ public class Main {
         ASTARrobot.runRobot(graph.getItemNodeList(),graph.getStartingNode());
         ASTARrobot.printPath();
 
+
+         */
         // Prim Robot
         resetGraphNodes();
         Robot PRIMrobot = new Robot(graph,prims);

@@ -3,13 +3,15 @@ package Algorithm;
 public class Prims implements TraversalAlgorithm{
     private GraphNode[] shortestPath;
     private int size;
+    private Graph localGraph;
     public Prims(Graph graph) {
         size = graph.getTotalNodes();
         shortestPath = new GraphNode[size];
+        localGraph = graph;
     }
 
     @Override
-    public GraphNode[] findShortest(GraphNode start, GraphNode target){
+    public GraphNode[] findShortest(Graph localGraph,GraphNode start, GraphNode target){
         return primMST(start,target);
     }
 

@@ -8,6 +8,7 @@ public class Dijkstra implements TraversalAlgorithm {
     private int pathIndex;// index of where in path we are
 
     private int size;// total vertices on graph
+    private Graph localGraph;
 
     /**
      * Constructor for Dijkstra initialize the structures we need for
@@ -23,6 +24,7 @@ public class Dijkstra implements TraversalAlgorithm {
         int cols = graph.getBoard()[0].length;
         predecessors = new GraphNode[rows][cols];
         distances = new int[rows][cols];
+        localGraph = graph;
 
         // from psuedocode have to initialize every weight to infinity(max value)
         for (int i = 0; i < rows; i++) {
@@ -34,7 +36,7 @@ public class Dijkstra implements TraversalAlgorithm {
 
     }
     @Override
-    public GraphNode[] findShortest(GraphNode start, GraphNode target){
+    public GraphNode[] findShortest(Graph localGraph,GraphNode start, GraphNode target){
         return dijkstraShortestPath(start,target);
     }
 
@@ -43,7 +45,7 @@ public class Dijkstra implements TraversalAlgorithm {
         Actual calling of algorithm to traverse graph given start and target
      */
     private GraphNode[] dijkstraShortestPath(GraphNode start, GraphNode target) {
-        shortestPath = (DIJ(start, target));
+        shortestPath = DIJ(start, target);
         return shortestPath;
     }
 
@@ -56,7 +58,7 @@ public class Dijkstra implements TraversalAlgorithm {
      * @param target- ending node
      * @return Shortest Path
      */
-    public GraphNode[] DIJ(GraphNode start, GraphNode target) {
+    private GraphNode[] DIJ(GraphNode start, GraphNode target) {
 
         distances[start.getRow()][start.getCol()] = 0;//distance start =0
         predecessors[start.getRow()][start.getCol()] = start;// first node
