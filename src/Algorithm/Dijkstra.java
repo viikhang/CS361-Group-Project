@@ -1,6 +1,6 @@
 package Algorithm;
 
-public class Dijkstra {
+public class Dijkstra implements TraversalAlgorithm {
 
     private int[][] distances;// hold weights for node location on graph
     private GraphNode[][] predecessors;// hold visited node path on graph
@@ -33,12 +33,18 @@ public class Dijkstra {
         }
 
     }
+    @Override
+    public GraphNode[] findShortest(GraphNode start, GraphNode target){
+        return dijkstraShortestPath(start,target);
+    }
+
 
     /*
         Actual calling of algorithm to traverse graph given start and target
      */
-    public void dijkstraShortestPath(GraphNode start, GraphNode target) {
-        shortestPath = DIJ(start, target);
+    private GraphNode[] dijkstraShortestPath(GraphNode start, GraphNode target) {
+        shortestPath = (DIJ(start, target));
+        return shortestPath;
     }
 
     /**

@@ -54,7 +54,7 @@ public class Main {
         DepthFirstSearch dfs = new DepthFirstSearch(graph.getTotalNodes());
         if (graph.getItemCount() == 1) {
             startTime = System.nanoTime();
-            dfs.findShortestPath(startingNode, graph.getItemNodeList()[0]);
+            dfs.findShortest(startingNode, graph.getItemNodeList()[0]);
             endTime = System.nanoTime();
             dfs.printPath();
             finalTime = endTime - startTime;
@@ -66,7 +66,7 @@ public class Main {
             while(index < graph.getItemCount()) {
                 resetGraphNodes();
                 startTime = System.nanoTime();
-                dfs.findShortestPath(startingNode, targetNode);
+                dfs.findShortest(startingNode, targetNode);
                 endTime = System.nanoTime();
                 finalTime += endTime - startTime;
                 index++;
@@ -87,7 +87,7 @@ public class Main {
         resetGraphNodes();
         if (graph.getItemCount() == 1) {
             startTime = System.nanoTime();
-            bfs.findShortestPath(startingNode, graph.getItemNodeList()[0]);
+            bfs.findShortest(startingNode, graph.getItemNodeList()[0]);
             endTime = System.nanoTime();
             bfs.printPath();
             finalTime = endTime - startTime;
@@ -100,7 +100,7 @@ public class Main {
             while (index < graph.getItemCount()) {
                 resetGraphNodes();
                 startTime = System.nanoTime();
-                bfs.findShortestPath(startingNode, targetNode);
+                bfs.findShortest(startingNode, targetNode);
                 endTime = System.nanoTime();
                 finalTime += endTime - startTime;
                 index++;
@@ -121,7 +121,7 @@ public class Main {
         resetGraphNodes();
         if (graph.getItemCount() == 1) {
             startTime = System.nanoTime();
-            diji.dijkstraShortestPath(startingNode, graph.getItemNodeList()[0]);
+            diji.findShortest(startingNode, graph.getItemNodeList()[0]);
             endTime = System.nanoTime();
             finalTime = endTime - startTime;
             diji.printPath();
@@ -134,7 +134,7 @@ public class Main {
             while (index < graph.getItemCount()) {
                 resetGraphNodes();
                 startTime = System.nanoTime();
-                diji.dijkstraShortestPath(startingNode, targetNode);
+                diji.findShortest(startingNode, targetNode);
                 endTime = System.nanoTime();
                 finalTime += endTime - startTime;
                 index++;
@@ -156,7 +156,7 @@ public class Main {
         resetGraphNodes();
         if (graph.getItemCount() == 1) {
             startTime = System.nanoTime();
-            Astar.AStarShortestPath(startingNode, graph.getItemNodeList()[0]);
+            Astar.findShortest(startingNode, graph.getItemNodeList()[0]);
             endTime = System.nanoTime();
             finalTime = endTime - startTime;
             Astar.printPath();
@@ -169,7 +169,7 @@ public class Main {
             while (index < graph.getItemCount()) {
                 resetGraphNodes();
                 startTime = System.nanoTime();
-                Astar.AStarShortestPath(startingNode, targetNode);
+                Astar.findShortest(startingNode, targetNode);
                 endTime = System.nanoTime();
                 finalTime += endTime - startTime;
                 index++;
@@ -191,7 +191,7 @@ public class Main {
         resetGraphNodes();
         if(graph.getItemCount() == 1) {
             startTime = System.nanoTime();
-            prims.primMST(startingNode,graph.getItemNodeList()[0]);
+            prims.findShortest(startingNode,graph.getItemNodeList()[0]);
             endTime = System.nanoTime();
             finalTime = endTime - startTime;
             prims.printPath();
@@ -206,7 +206,7 @@ public class Main {
             while (index < graph.getItemCount()) {
                 resetGraphNodes();
                 startTime = System.nanoTime();
-                prims.primMST(startingNode, targetNode);
+                prims.findShortest(startingNode, targetNode);
                 endTime = System.nanoTime();
                 finalTime += endTime - startTime;
                 index++;
@@ -217,6 +217,43 @@ public class Main {
             }
             System.out.println("Prims search Time (nano seconds): " + finalTime);
         }
+
+        resetGraphNodes();
+
+        // Robot Time for every Algorithm
+        //DFS Robot
+        Robot DFSrobot = new Robot(graph,dfs);
+        System.out.println(" DFS Robot");
+        DFSrobot.runRobot(graph.getItemNodeList(),graph.getStartingNode());
+        DFSrobot.printPath();
+
+        //BFS robot
+        resetGraphNodes();
+        Robot BFSrobot = new Robot(graph,bfs);
+        System.out.println(" DFS Robot");
+        BFSrobot.runRobot(graph.getItemNodeList(),graph.getStartingNode());
+        BFSrobot.printPath();
+
+        //Dijkstra robot
+        resetGraphNodes();
+        Robot DIJKSTRArobot = new Robot(graph,diji);
+        System.out.println(" Dijkstra Robot");
+        DIJKSTRArobot.runRobot(graph.getItemNodeList(),graph.getStartingNode());
+        DIJKSTRArobot.printPath();
+
+        //A star robot
+        resetGraphNodes();
+        Robot ASTARrobot = new Robot(graph,Astar);
+        System.out.println(" AStar Robot");
+        ASTARrobot.runRobot(graph.getItemNodeList(),graph.getStartingNode());
+        ASTARrobot.printPath();
+
+        // Prim Robot
+        resetGraphNodes();
+        Robot PRIMrobot = new Robot(graph,prims);
+        System.out.println(" Prim Robot");
+        PRIMrobot.runRobot(graph.getItemNodeList(),graph.getStartingNode());
+        PRIMrobot.printPath();
     }
 
 
@@ -259,4 +296,6 @@ public class Main {
             System.out.println();
         }
     }
+
+
 }

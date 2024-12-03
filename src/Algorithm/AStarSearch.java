@@ -3,7 +3,7 @@ package Algorithm;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class AStarSearch {
+public class AStarSearch implements TraversalAlgorithm{
     private int[][] gCost;// actual distance is gCost
     private int[][] fCost;// f cost is = g+h, heap is based on this cost
     private GraphNode[][] predecessors;// previous nodes to current
@@ -37,10 +37,15 @@ public class AStarSearch {
         }
 
     }
+    @Override
+    public GraphNode[] findShortest(GraphNode start, GraphNode target){
+        return AStarShortestPath(start,target);
+    }
 
     // Actual algorithm call
-    public void AStarShortestPath(GraphNode start, GraphNode target) {
+    private GraphNode[] AStarShortestPath(GraphNode start, GraphNode target) {
         shortestPath = AStar(start, target);
+        return shortestPath;
 
     }
 

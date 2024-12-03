@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 
-public class BreadthFirstSearch {
+public class BreadthFirstSearch implements TraversalAlgorithm{
     private GraphNode[] shortestPath;
     private int pathIndex;
 
@@ -22,10 +22,15 @@ public class BreadthFirstSearch {
         pathIndex = 0;
     }
 
-    public void findShortestPath(GraphNode start, GraphNode target) {
+    @Override
+    public GraphNode[] findShortest(GraphNode start, GraphNode target){
+        return findShortestPath(start,target);
+    }
+    private GraphNode[] findShortestPath(GraphNode start, GraphNode target) {
         pathIndex = 0;
         shortestPath = new GraphNode[size];
         shortestPath = BFS(start, target);
+        return shortestPath;
     }
 
     public GraphNode[] BFS(GraphNode start, GraphNode target) {

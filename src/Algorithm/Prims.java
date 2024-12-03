@@ -1,11 +1,16 @@
 package Algorithm;
 
-public class Prims {
+public class Prims implements TraversalAlgorithm{
     private GraphNode[] shortestPath;
     private int size;
     public Prims(Graph graph) {
         size = graph.getTotalNodes();
         shortestPath = new GraphNode[size];
+    }
+
+    @Override
+    public GraphNode[] findShortest(GraphNode start, GraphNode target){
+        return primMST(start,target);
     }
 
     /**
@@ -21,7 +26,7 @@ public class Prims {
      * @param target- ending node
      * @return shortest path
      */
-    public GraphNode[]  primMST(GraphNode start, GraphNode target) {
+    private GraphNode[]  primMST(GraphNode start, GraphNode target) {
         GraphNode current = start;
         current.setParentNode(null);
         MinHeap heap = new MinHeap(size * 4);// over-estimate of edges

@@ -1,6 +1,6 @@
 package Algorithm;
 
-public class DepthFirstSearch {
+public class DepthFirstSearch implements TraversalAlgorithm{
     private GraphNode[] shortestPath;
     private int pathIndex;
 
@@ -8,10 +8,15 @@ public class DepthFirstSearch {
         shortestPath = new GraphNode[size];
         pathIndex = 0;
     }
+    @Override
+    public GraphNode[] findShortest(GraphNode start, GraphNode target){
+        return findShortestPath(start,target);
+    }
 
-    public void findShortestPath(GraphNode start, GraphNode target) {
+    private GraphNode[] findShortestPath(GraphNode start, GraphNode target) {
         pathIndex = 0;
         shortestPath = DFS(start, target);
+        return shortestPath;
     }
 
     public GraphNode[] DFS(GraphNode start, GraphNode target) {
