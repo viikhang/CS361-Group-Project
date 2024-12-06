@@ -28,6 +28,7 @@ public class Robot {
             resetGraphNodes();
             // subPath is path from current to target
             GraphNode[] subPath = RobotAlgorithm.findShortest(localGraph,current,target);
+
             itemsFound ++;
             // fill robot path with shortest
             for(int i =0; i< subPath.length; i++){
@@ -41,6 +42,7 @@ public class Robot {
         resetGraphNodes();
         // now that all targets have been found we return to start from final target
         GraphNode[] returnToStart = RobotAlgorithm.findShortest(localGraph,targets[itemsFound -1],start);
+        System.out.println("what is this: "+ targets[itemsFound -1 ] + "\n wats this: " + start);
         for(GraphNode node : returnToStart){// fill in the last path
             if(node != null) {
                 robotPath[index++] = node;

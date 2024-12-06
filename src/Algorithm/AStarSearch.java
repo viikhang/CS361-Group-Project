@@ -64,7 +64,7 @@ public class AStarSearch implements TraversalAlgorithm{
      * @return- shortest path
      */
     public GraphNode[] AStar(GraphNode start, GraphNode target) {
-
+        start.setParentNode(null);
         gCost[start.getRow()][start.getCol()] = 0;// distance to start is 0
         // heap structure to determine the next node to visit
         MinHeap heap = new MinHeap(size);
@@ -84,7 +84,8 @@ public class AStarSearch implements TraversalAlgorithm{
             // if target is found the algorithm is done
             if (current == target) {
                 //function that rebuilds path
-                return pathBuilder(predecessors, start, target);
+                createPath(current);
+                return shortestPath;
             }
             //relaxing edges
             for (int i = 0; i < 4; i++) {// max four adjacent nodes
@@ -92,6 +93,7 @@ public class AStarSearch implements TraversalAlgorithm{
                 GraphNode neighbor = current.getVertices()[i];
                 // if adjacent node is traversable and not visited
                 if (neighbor != null && !(neighbor.isVisited())) {
+                    neighbor.setParentNode(current);
                     /* manhattan distance formula for heuristic
                         target(x2,y2) current(x1,y1)
                         Hcost = |x1-x2| - |y1 - y2|
@@ -107,6 +109,8 @@ public class AStarSearch implements TraversalAlgorithm{
 
                         gCost[neighbor.getRow()][neighbor.getCol()] =
                                 updatedGCost;
+
+                        neighbor.setParentNode(current);
                         // despite exploring fCost min, g min is in pred
                         predecessors[neighbor.getRow()][neighbor.getCol()] =
                                 current;//we chose this node for dijkstras
@@ -136,7 +140,7 @@ public class AStarSearch implements TraversalAlgorithm{
         return c;
     }
 
-    private GraphNode[] pathBuilder(GraphNode[][] predecessors, GraphNode start, GraphNode target) {
+    /*private GraphNode[] pathBuilder(GraphNode[][] predecessors, GraphNode start, GraphNode target) {
         GraphNode[] path = new GraphNode[shortestPath.length];// return array
         GraphNode curr = target;// start from ending
         pathIndex = 0;
@@ -160,7 +164,27 @@ public class AStarSearch implements TraversalAlgorithm{
         return path;
     }
 
+     */
 
+    public void createPath(GraphNode target) {
+        GraphNode current = target;
+        int index = 0;
+        while (current.getParentNode() != null) {
+            if (index >= shortestPath.length) {// Graph is disconnected from start
+                throw new ArrayIndexOutOfBoundsException("DISCONNECTED GRAPH");
+            }
+            shortestPath[index] = current;
+            index++;
+            current = current.getParentNode();
+        }
+        // reverse
+        for(int i = 0; i < index /2; i++){
+            GraphNode swap = shortestPath[i];
+            shortestPath[i] = shortestPath[index - i - 1];
+            shortestPath[index - i - 1] = swap;
+        }
+
+    }
     /**
      * Print path loops through shortest and prints node's x,y value on graph
      */

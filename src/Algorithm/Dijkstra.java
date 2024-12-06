@@ -3,9 +3,7 @@ package Algorithm;
 public class Dijkstra implements TraversalAlgorithm {
 
     private int[][] distances;// hold weights for node location on graph
-    private GraphNode[][] predecessors;// hold visited node path on graph
     private GraphNode[] shortestPath;// return value for function
-    private int pathIndex;// index of where in path we are
 
     private int size;// total vertices on graph
     private Graph localGraph;
@@ -18,14 +16,13 @@ public class Dijkstra implements TraversalAlgorithm {
      */
     public Dijkstra(Graph graph) {
         size = graph.getTotalNodes();
-        pathIndex = 0;
+
         shortestPath = new GraphNode[size];
         int rows = graph.getBoard().length;
         int cols = graph.getBoard()[0].length;
-        predecessors = new GraphNode[rows][cols];
+        //predecessors = new GraphNode[graph.getTotalNodes()];
         distances = new int[rows][cols];
         localGraph = graph;
-
         // from psuedocode have to initialize every weight to infinity(max value)
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
@@ -59,13 +56,11 @@ public class Dijkstra implements TraversalAlgorithm {
      * @return Shortest Path
      */
     private GraphNode[] DIJ(GraphNode start, GraphNode target) {
-
+        start.setParentNode(null);
         distances[start.getRow()][start.getCol()] = 0;//distance start =0
-        predecessors[start.getRow()][start.getCol()] = start;// first node
-
         MinHeap heap = new MinHeap(size);//create heap with max size
         heap.insert(start, 0);// insert start into heap
-
+        int index = 0;
         // heap should only be empty when no path is available
         while (!(heap.isEmpty())) {
             // current = root of heap/ min weight value
@@ -76,10 +71,12 @@ public class Dijkstra implements TraversalAlgorithm {
             }
 
             current.setVisited(true);// we are relaxing nodes so visited = true
+            //predecessors[index++] = current;
             // if target found program is done
             if (current == target) {
                 //function that retraces path taken from start to target
-                return pathBuilder(predecessors, start, target);
+                createPath(current);
+                return shortestPath;
             }
             //relaxing edges
             for (int i = 0; i < 4; i++) {// max 4 edges to any one node
@@ -91,6 +88,7 @@ public class Dijkstra implements TraversalAlgorithm {
                      to current
 
                      */
+                    neighbor.setParentNode(current);
                     int updatedDist =
                             distances[current.getRow()][current.getCol()] +
                                     current.getNodeToVertexCost()[i];
@@ -100,11 +98,10 @@ public class Dijkstra implements TraversalAlgorithm {
                         // new lowest distance to that node
                         distances[neighbor.getRow()][neighbor.getCol()] =
                                 updatedDist;
-                        // we will traverse this neighbor so add it to path
-                        predecessors[neighbor.getRow()][neighbor.getCol()] =
-                                current;
+
                         // we will look at this edge next because its lowest
                         heap.insert(neighbor, updatedDist);
+
 
                     }
                 }
@@ -115,34 +112,23 @@ public class Dijkstra implements TraversalAlgorithm {
         return null;// no path
     }
 
-    /**
-     * @param predecessors- list of nodes taken based on x,y of the node
-     * @param start-        starting node
-     * @param target-       ending node
-     * @return - Shortest path
-     */
-    private GraphNode[] pathBuilder(GraphNode[][] predecessors, GraphNode start, GraphNode target) {
-        GraphNode[] path = new GraphNode[shortestPath.length];// return array
-        GraphNode curr = target;// start from ending
-        pathIndex = 0;
-        //start from target and follow pred backwards to start.
-        while (curr != null) {
-            path[pathIndex++] = curr;// add current node
-            if (curr == start) {// we reached start
-                break;
+    public void createPath(GraphNode target) {
+        GraphNode current = target;
+        int index = 0;
+        while (current.getParentNode() != null) {
+            if (index >= shortestPath.length) {// Graph is disconnected from start
+                throw new ArrayIndexOutOfBoundsException("DISCONNECTED GRAPH");
             }
-            // new current is node previous to the current node
-            curr = predecessors[curr.getRow()][curr.getCol()];
-
+            shortestPath[index++] = current;
+            current = current.getParentNode();
         }
-        //reverse path
-        for (int i = 0; i < pathIndex / 2; i++) {
-            GraphNode temp = path[i];
-            path[i] = path[pathIndex - i - 1];
-            path[pathIndex - i - 1] = temp;
+        // reverse
+        for(int i = 0; i < index /2; i++){
+            GraphNode swap = shortestPath[i];
+            shortestPath[i] = shortestPath[index - i - 1];
+            shortestPath[index - i - 1] = swap;
         }
 
-        return path;
     }
 
     /**

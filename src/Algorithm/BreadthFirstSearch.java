@@ -13,15 +13,16 @@ public class BreadthFirstSearch implements TraversalAlgorithm{
     private GraphNode startNode;
     private GraphNode finalNode;
 
-    private GraphNode[] parentNodes = new GraphNode[15*15];
+    private GraphNode[] parentNodes ;
     private int parentIndex = 0;
-    Graph localGraph;
+    private Graph localGraph;
 
     public BreadthFirstSearch(int size, Graph graph) {
         this.size = size;
         shortestPath = new GraphNode[size];
         pathIndex = 0;
         localGraph = graph;
+        parentNodes = new GraphNode[graph.getTotalNodes() * graph.getTotalNodes()];
     }
 
     @Override
