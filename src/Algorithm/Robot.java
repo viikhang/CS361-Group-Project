@@ -42,6 +42,8 @@ public class Robot {
         resetGraphNodes();
         // now that all targets have been found we return to start from final target
         GraphNode[] returnToStart = RobotAlgorithm.findShortest(localGraph,targets[itemsFound -1],start);
+        GraphNode tempNode = new GraphNode(-99,-99);//Use this node to indicate robot going back to start
+        robotPath[index++] = tempNode;
         for(GraphNode node : returnToStart){// fill in the last path
             if(node != null) {
                 robotPath[index++] = node;
@@ -59,11 +61,17 @@ public class Robot {
     public void printPath() {
         for (int i = 0; i < robotPath.length; i++) {
             if (robotPath[i] != null) {
-                System.out.print(robotPath[i]);
-                if (i + 1 < robotPath.length && robotPath[i + 1] != null) {
+                if(robotPath[i].getCol() == -99 && robotPath[i].getRow() == -99){
+                    System.out.println();
+                    System.out.print(robotPath[i].goingBack());
+                } else {
+                    System.out.print(robotPath[i]);
+                }
+                if (i + 1 < robotPath.length && robotPath[i + 1] != null && robotPath[i + 1].getCol() != -99) {
                     System.out.print(" -> ");
                 }
             } else {
+
                 break;
             }
         }
