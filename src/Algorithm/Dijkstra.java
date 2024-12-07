@@ -56,6 +56,7 @@ public class Dijkstra implements TraversalAlgorithm {
      * @return Shortest Path
      */
     private GraphNode[] DIJ(GraphNode start, GraphNode target) {
+        resetDistances(distances);// need to reset distances when moving backward
         start.setParentNode(null);
         distances[start.getRow()][start.getCol()] = 0;//distance start =0
         MinHeap heap = new MinHeap(size);//create heap with max size
@@ -112,10 +113,23 @@ public class Dijkstra implements TraversalAlgorithm {
         return null;// no path
     }
 
+    /*
+        For reseting distances when moving backward from final item to start
+     */
+    private void resetDistances(int [][] distances){
+        for (int i = 0; i < distances.length; i++) {
+            for (int j = 0; j < distances[0].length; j++) {
+                distances[i][j] = Integer.MAX_VALUE;
+
+            }
+        }
+
+    }
+
     public void createPath(GraphNode target) {
         GraphNode current = target;
         int index = 0;
-        while (current.getParentNode() != null) {
+        while (current != null) {
             if (index >= shortestPath.length) {// Graph is disconnected from start
                 throw new ArrayIndexOutOfBoundsException("DISCONNECTED GRAPH");
             }

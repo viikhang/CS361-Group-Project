@@ -69,12 +69,11 @@ public class Prims implements TraversalAlgorithm{
     public void createPath(GraphNode target) {
         GraphNode current = target;
         int index = 0;
-        while (current.getParentNode() != null) {
+        while (current != null) {
             if (index >= shortestPath.length) {// Graph is disconnected from start
                 throw new ArrayIndexOutOfBoundsException("DISCONNECTED GRAPH");
             }
-            shortestPath[index] = current;
-            index++;
+            shortestPath[index++] = current;
             current = current.getParentNode();
         }
         // reverse

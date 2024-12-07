@@ -140,41 +140,15 @@ public class AStarSearch implements TraversalAlgorithm{
         return c;
     }
 
-    /*private GraphNode[] pathBuilder(GraphNode[][] predecessors, GraphNode start, GraphNode target) {
-        GraphNode[] path = new GraphNode[shortestPath.length];// return array
-        GraphNode curr = target;// start from ending
-        pathIndex = 0;
-        //start from target and follow pred backwards to start.
-        while (curr != null) {
-            path[pathIndex++] = curr;// add current node
-            if (curr == start) {// we reached start
-                break;
-            }
-            // new current is node previous to the current node
-            curr = predecessors[curr.getRow()][curr.getCol()];
-
-        }
-        //reverse path
-        for (int i = 0; i < pathIndex / 2; i++) {
-            GraphNode temp = path[i];
-            path[i] = path[pathIndex - i - 1];
-            path[pathIndex - i - 1] = temp;
-        }
-
-        return path;
-    }
-
-     */
 
     public void createPath(GraphNode target) {
         GraphNode current = target;
         int index = 0;
-        while (current.getParentNode() != null) {
+        while (current != null) {
             if (index >= shortestPath.length) {// Graph is disconnected from start
                 throw new ArrayIndexOutOfBoundsException("DISCONNECTED GRAPH");
             }
-            shortestPath[index] = current;
-            index++;
+            shortestPath[index++] = current;
             current = current.getParentNode();
         }
         // reverse
