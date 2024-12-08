@@ -87,12 +87,37 @@ public class BreadthFirstSearch implements TraversalAlgorithm{
 //                        System.out.println(queue.remove());
 //                    }
                     ///
+                    createShortPath();
                     return true;
                 }
             }
 //            removeNodeFromPath();
         }
         return false;
+    }
+
+    private void createShortPath(){
+        int depth = 0;
+        GraphNode temp1 = finalNode;
+        while (temp1 != null) {
+            depth++;
+            temp1 = temp1.getParentNode();
+        }
+
+        GraphNode[] reverse = new GraphNode[depth];
+
+
+
+        int index = reverse.length - 1;
+        GraphNode temp2 = finalNode;
+        while(temp2 != null && index >= 0){
+            reverse[index--] = temp2;
+            temp2 = temp2.getParentNode();
+        }
+        shortestPath = new GraphNode[size];
+        for(int i = 0; i < reverse.length; i++){
+            shortestPath[i] = reverse[i];
+        }
     }
 
 
