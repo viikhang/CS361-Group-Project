@@ -71,5 +71,7 @@ public class GraphNode {
     public String toString() {
         return "(" + yCord + " , " + xCord + ")";
     }
-
+    public String goingBack(){
+        return "(Traversing back to start)";
+    }
 }
