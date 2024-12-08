@@ -10,7 +10,8 @@ public class Robot {
 
     public Robot(Graph graph, TraversalAlgorithm algorithm){
         targets = graph.getItemNodeList();
-        robotPath = new GraphNode[graph.getTotalNodes() * 2];//account for return
+        //TODO ADDED THIS
+        robotPath = new GraphNode[graph.getTotalNodes() * graph.getTotalNodes()];//account for return
         localGraph = graph;
         RobotAlgorithm = algorithm;
 
@@ -34,6 +35,10 @@ public class Robot {
             for(int i =0; i< subPath.length; i++){
                 if(subPath[i] != null){
                     robotPath[index++] = subPath[i];
+                    //TODO ADDED THIS
+                    if(subPath[i] == target){
+                        break;
+                    }
                 }
             }
             // current gets set to the found target for next target
@@ -47,6 +52,10 @@ public class Robot {
         for(GraphNode node : returnToStart){// fill in the last path
             if(node != null) {
                 robotPath[index++] = node;
+                //TODO, ADDED THIS
+                if(node == start){
+                    break;
+                }
             }
         }
         return robotPath;

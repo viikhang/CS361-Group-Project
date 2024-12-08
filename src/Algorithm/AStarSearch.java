@@ -46,6 +46,7 @@ public class AStarSearch implements TraversalAlgorithm{
 
     // Actual algorithm call
     private GraphNode[] AStarShortestPath(GraphNode start, GraphNode target) {
+        shortestPath = new GraphNode[size];
         shortestPath = AStar(start, target);
         return shortestPath;
 

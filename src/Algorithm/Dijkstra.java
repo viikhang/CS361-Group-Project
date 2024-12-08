@@ -42,6 +42,7 @@ public class Dijkstra implements TraversalAlgorithm {
         Actual calling of algorithm to traverse graph given start and target
      */
     private GraphNode[] dijkstraShortestPath(GraphNode start, GraphNode target) {
+        shortestPath = new GraphNode[size];
         shortestPath = DIJ(start, target);
         return shortestPath;
     }

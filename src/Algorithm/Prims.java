@@ -12,6 +12,7 @@ public class Prims implements TraversalAlgorithm{
 
     @Override
     public GraphNode[] findShortest(Graph localGraph,GraphNode start, GraphNode target){
+        shortestPath = new GraphNode[size];
         return primMST(start,target);
     }
 

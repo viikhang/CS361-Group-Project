@@ -133,6 +133,8 @@ public class Main {
             int index = 0;
             while (index < graph.getItemCount()) {
                 resetGraphNodes();
+//                System.out.println("start" + startingNode);
+//                System.out.println("target" + targetNode);
                 startTime = System.nanoTime();
                 dijk.findShortest(graph,startingNode, targetNode);
                 endTime = System.nanoTime();
@@ -140,6 +142,7 @@ public class Main {
                 index++;
                 startingNode = targetNode;
                 targetNode = graph.getItemNodeList()[index];
+
                 dijk.printPath();
             }
             System.out.println("Dijkstra Search Time (nano seconds): " + finalTime);
