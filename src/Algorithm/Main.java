@@ -232,19 +232,19 @@ public class Main {
         endTime = System.nanoTime();
         finalTime = endTime - startTime;
         DFSrobot.printPath();
-        System.out.println("Time : " + finalTime);
+        System.out.println("DFS Robot Time : " + finalTime);
 
         //BFS robot
         resetGraphNodes();
         BreadthFirstSearch bfsRobot = new BreadthFirstSearch(graph.getTotalNodes(), graph);
         Robot BFSrobot = new Robot(graph,bfsRobot);
-        System.out.println(" BFS Robot");
+        System.out.println("BFS Robot");
         startTime = System.nanoTime();
         BFSrobot.runRobot(graph.getItemNodeList(),graph.getStartingNode());
         endTime = System.nanoTime();
         finalTime = endTime - startTime;
         BFSrobot.printPath();
-        System.out.println("Time : " + finalTime);
+        System.out.println("BFS Robot Time : " + finalTime);
 
 
         //Dijkstra robot
@@ -257,7 +257,7 @@ public class Main {
         endTime = System.nanoTime();
         finalTime = endTime - startTime;
         DIJKSTRArobot.printPath();
-        System.out.println("Time : " + finalTime);
+        System.out.println("Dijkstra Robot Time : " + finalTime);
 
 
 
@@ -266,13 +266,13 @@ public class Main {
         resetGraphNodes();
         AStarSearch AstarRobot = new AStarSearch(graph);
         Robot ASTARrobot = new Robot(graph,AstarRobot);
-        System.out.println(" AStar Robot");
+        System.out.println("AStar Robot");
         startTime = System.nanoTime();
         ASTARrobot.runRobot(graph.getItemNodeList(),graph.getStartingNode());
         endTime = System.nanoTime();
         finalTime = endTime - startTime;
         ASTARrobot.printPath();
-        System.out.println("Time : " + finalTime);
+        System.out.println("AStar Robot Time : " + finalTime);
 
 
 
@@ -286,10 +286,11 @@ public class Main {
         endTime = System.nanoTime();
         finalTime = endTime - startTime;
         PRIMrobot.printPath();
-        System.out.println("Time : " + finalTime);
+        System.out.println(" Prim Robot Time : " + finalTime);
 
 
         // little calculation for averaging times
+        System.out.println("Average of Dijkstra Algorithm over 100 iterations");
         int n = 100;
         long totalTime = 0;
         long max = Long.MIN_VALUE;
