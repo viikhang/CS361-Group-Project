@@ -52,6 +52,7 @@ public class Robot {
         return robotPath;
     }
 
+    // need to reset the nodes visited.
     private void resetGraphNodes() {
         for (int i = 0; i < localGraph.getNodeList().length; i++) {
             localGraph.getNodeList()[i].setVisited(false);

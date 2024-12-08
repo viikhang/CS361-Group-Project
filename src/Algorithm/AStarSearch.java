@@ -52,7 +52,7 @@ public class AStarSearch implements TraversalAlgorithm{
     }
 
     /**
-     * AStar is modified BFS, and is a greedy algorithm making decisions based
+     * AStar is modified DFS, and is a greedy algorithm making decisions based
      * on actual gCost, and the heuristic cost totaled in Fcost
      * the Heuristic cost is done on the fly and utilizes a manhattan distance
      * <p>
@@ -140,7 +140,12 @@ public class AStarSearch implements TraversalAlgorithm{
         return c;
     }
 
-
+    /**
+     * create path goes from target and retraces paths built from target
+     * until we reach the start -> this path will need to be reversed
+     *
+     * @param target- ending location
+     */
     public void createPath(GraphNode target) {
         GraphNode current = target;
         int index = 0;

@@ -125,7 +125,12 @@ public class Dijkstra implements TraversalAlgorithm {
         }
 
     }
-
+    /**
+     * create path goes from target and retraces paths built from target
+     * until we reach the start -> this path will need to be reversed
+     *
+     * @param target- ending location
+     */
     public void createPath(GraphNode target) {
         GraphNode current = target;
         int index = 0;

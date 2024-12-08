@@ -227,16 +227,24 @@ public class Main {
         DepthFirstSearch dfsRobot = new DepthFirstSearch(graph.getTotalNodes(), graph);
         Robot DFSrobot = new Robot(graph,dfsRobot);
         System.out.println(" DFS Robot");
+        startTime = System.nanoTime();
         DFSrobot.runRobot(graph.getItemNodeList(),graph.getStartingNode());
+        endTime = System.nanoTime();
+        finalTime = endTime - startTime;
         DFSrobot.printPath();
+        System.out.println("Time : " + finalTime);
 
         //BFS robot
         resetGraphNodes();
         BreadthFirstSearch bfsRobot = new BreadthFirstSearch(graph.getTotalNodes(), graph);
         Robot BFSrobot = new Robot(graph,bfsRobot);
         System.out.println(" BFS Robot");
+        startTime = System.nanoTime();
         BFSrobot.runRobot(graph.getItemNodeList(),graph.getStartingNode());
+        endTime = System.nanoTime();
+        finalTime = endTime - startTime;
         BFSrobot.printPath();
+        System.out.println("Time : " + finalTime);
 
 
         //Dijkstra robot
@@ -244,8 +252,12 @@ public class Main {
         Dijkstra dijkRobot = new Dijkstra(graph);
         Robot DIJKSTRArobot = new Robot(graph,dijkRobot);
         System.out.println(" Dijkstra Robot");
+        startTime = System.nanoTime();
         DIJKSTRArobot.runRobot(graph.getItemNodeList(),graph.getStartingNode());
+        endTime = System.nanoTime();
+        finalTime = endTime - startTime;
         DIJKSTRArobot.printPath();
+        System.out.println("Time : " + finalTime);
 
 
 
@@ -255,8 +267,12 @@ public class Main {
         AStarSearch AstarRobot = new AStarSearch(graph);
         Robot ASTARrobot = new Robot(graph,AstarRobot);
         System.out.println(" AStar Robot");
+        startTime = System.nanoTime();
         ASTARrobot.runRobot(graph.getItemNodeList(),graph.getStartingNode());
+        endTime = System.nanoTime();
+        finalTime = endTime - startTime;
         ASTARrobot.printPath();
+        System.out.println("Time : " + finalTime);
 
 
 
@@ -265,10 +281,51 @@ public class Main {
         Prims primsRobot = new Prims(graph);
         Robot PRIMrobot = new Robot(graph,prims);
         System.out.println(" Prim Robot");
+        startTime = System.nanoTime();
         PRIMrobot.runRobot(graph.getItemNodeList(),graph.getStartingNode());
+        endTime = System.nanoTime();
+        finalTime = endTime - startTime;
         PRIMrobot.printPath();
+        System.out.println("Time : " + finalTime);
 
 
+        // little calculation for averaging times
+        int n = 100;
+        long totalTime = 0;
+        long max = Long.MIN_VALUE;
+        long min = Long.MAX_VALUE;
+        while (n > 0){
+            resetGraphNodes();
+            startingNode = graph.getStartingNode();
+            GraphNode targetNode = graph.getItemNodeList()[0];
+            int index = 0;
+            finalTime = 0;
+            while (index < graph.getItemCount()) {
+                resetGraphNodes();
+                startTime = System.nanoTime();
+                // change to algorithm for testing purposes
+                primsRobot.findShortest(graph,startingNode, targetNode);
+                endTime = System.nanoTime();
+                finalTime += endTime - startTime;
+                index++;
+                startingNode = targetNode;
+                targetNode = graph.getItemNodeList()[index];
+            }
+            if(finalTime < min){
+                min = finalTime;
+            }
+            if(finalTime > max){
+                max = finalTime;
+            }
+
+            totalTime += finalTime;
+            n --;
+
+        }
+        totalTime = totalTime / 100;
+        System.out.println(" avg time: "+ totalTime);
+        System.out.println(" min time: "+ min);
+        System.out.println(" max time: "+ max);
 
     }
 
