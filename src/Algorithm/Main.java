@@ -60,7 +60,7 @@ public class Main {
             finalTime = endTime - startTime;
             pathLengthD += dfs.printPath();
             System.out.println("Depth First Search Time (nano seconds): " + finalTime);
-            System.out.println("Path length: "+ pathLengthD);
+            System.out.println("Path length: "+ (pathLengthD));
         } else { //handling multiple items
             finalTime = 0;
             GraphNode targetNode = graph.getItemNodeList()[0];
@@ -78,7 +78,7 @@ public class Main {
             }
 
             System.out.println("Depth First Search Time (nano seconds): " + finalTime);
-            System.out.println("Path length: "+ pathLengthD);
+            System.out.println("Path length: "+ (pathLengthD - graph.getItemCount()));
         }
         System.out.println();
 
@@ -97,7 +97,7 @@ public class Main {
             finalTime = endTime - startTime;
             pathLengthB += bfs.printPath();
             System.out.println("Breadth First Search Time (nano seconds): " + finalTime);
-            System.out.println("Path length: "+ pathLengthB);
+            System.out.println("Path length: "+ (pathLengthB));
         } else { //handle multiple items
             finalTime = 0;
             startingNode = graph.getStartingNode();
@@ -115,7 +115,7 @@ public class Main {
                 pathLengthB +=bfs.printPath();
             }
             System.out.println("Breadth First Search Time (nano seconds): " + finalTime);
-            System.out.println("Path length: "+ pathLengthB);
+            System.out.println("Path length: "+ (pathLengthB- graph.getItemCount()));
         }
 
         /**
@@ -134,7 +134,7 @@ public class Main {
             finalTime = endTime - startTime;
             pathLengthDij += dijk.printPath();
             System.out.println("Dijkstra Search Time (nano seconds): " + finalTime);
-            System.out.println("Path length: "+ pathLengthDij);
+            System.out.println("Path length: "+ (pathLengthDij));
         } else {
             finalTime = 0;
             startingNode = graph.getStartingNode();
@@ -156,7 +156,7 @@ public class Main {
             }
 
             System.out.println("Dijkstra Search Time (nano seconds): " + finalTime);
-            System.out.println("Path length: "+ pathLengthDij);
+            System.out.println("Path length: "+ (pathLengthDij- graph.getItemCount()));
 
         }
 
@@ -176,7 +176,7 @@ public class Main {
             finalTime = endTime - startTime;
             pathLengthA += Astar.printPath();
             System.out.println("A* Search Time (nano seconds): " + finalTime);
-            System.out.println("Path length: "+ pathLengthA);
+            System.out.println("Path length: "+ (pathLengthA));
         } else {
             finalTime = 0;
             startingNode = graph.getStartingNode();
@@ -195,7 +195,7 @@ public class Main {
             }
 
             System.out.println("A* Search Time (nano seconds): " + finalTime);
-            System.out.println("Path length: "+ pathLengthA);
+            System.out.println("Path length: "+ (pathLengthA- graph.getItemCount()));
         }
 
         /**
@@ -235,7 +235,7 @@ public class Main {
 
             }
             System.out.println("Prims search Time (nano seconds): " + finalTime);
-            System.out.println("Path length: "+ pathLengthP);
+            System.out.println("Path length: "+ (pathLengthP - graph.getItemCount()));
         }
         System.out.println();
         System.out.println();
@@ -324,7 +324,7 @@ public class Main {
                 resetGraphNodes();
                 startTime = System.nanoTime();
                 // change to algorithm for testing purposes
-                primsRobot.findShortest(graph,startingNode, targetNode);
+                AstarRobot.findShortest(graph,startingNode, targetNode);
                 endTime = System.nanoTime();
                 finalTime += endTime - startTime;
                 index++;
