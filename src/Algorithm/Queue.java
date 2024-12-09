@@ -59,5 +59,3 @@ public class Queue {
         array = newArray;
     }
 }
-
-
