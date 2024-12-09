@@ -120,16 +120,7 @@ public class BreadthFirstSearch implements TraversalAlgorithm{
         }
     }
 
-    /*
-    Calculate length for path, however for multiple item graph there will be
-    repeat nodes as we pass the found target to the start.
-     */
-    public int pathLength(){
-        if(localGraph.getItemCount() < 2){
-            return shortestPath.length;
-        }
-        return shortestPath.length- localGraph.getItemCount();
-    }
+
     private void addNode(GraphNode node) {
         if (pathIndex < shortestPath.length) {
             shortestPath[pathIndex] = node;
@@ -138,17 +129,8 @@ public class BreadthFirstSearch implements TraversalAlgorithm{
     }
 
 
-    public void printPath() {
-
-//        System.out.print(startNode);
-//        for(int i = 0; i < parentNodes.length; i++) {
-//            if(parentNodes[i] == null){
-//                break;
-//            }
-//            System.out.print(" -> ");
-//            System.out.print(parentNodes[i]);
-//
-//        }
+    public int printPath() {
+        int length =0;
         int depth = 0;
         GraphNode temp1 = finalNode;
         while (temp1 != null) {
@@ -169,6 +151,7 @@ public class BreadthFirstSearch implements TraversalAlgorithm{
 
         for (int i = 0; i < reverse.length; i++) {
             System.out.print(reverse[i]);
+            length++;
             if(i < reverse.length - 1){
                 System.out.print(" -> ");
             }
@@ -184,31 +167,10 @@ public class BreadthFirstSearch implements TraversalAlgorithm{
         }
 
         System.out.println();
+        return length;
 
-        ///Here is previously used print statement
-
-//        for (int i = 0; i < shortestPath.length; i++) {
-//            if (shortestPath[i] != null) {
-//                System.out.print(shortestPath[i]);
-//                if (i + 1 < shortestPath.length && shortestPath[i + 1] != null) {
-//                    System.out.print(" -> ");
-//                }
-//            } else {
-//                break;
-//            }
-//        }
-//        System.out.println();
     }
 }
 
 
-/// BFS Initialization
-//BreadthFirstSearch bfs = new BreadthFirstSearch(graph.getTotalNodes());
-//        if(graph.getItemCount() == 1) {
-//        bfs.findShortestPath(startingNode, graph.getItemNodeList()[0]);
-////            bfs.printPath();
-//        } else {
-//        //need to do more than one call
-//        }
-///
 

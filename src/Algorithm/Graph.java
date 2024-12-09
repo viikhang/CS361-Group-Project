@@ -113,7 +113,7 @@ public class Graph {
         //left vertices(1)
         if (inBoundL(col) && nodeBoard[row][col - 1].getCellType() != obs) {
             node.getVertices()[1] = nodeBoard[row][col - 1];
-            node.getNodeToVertexCost()[1] = 2;
+            node.getNodeToVertexCost()[1] = 1;
         }
 
         // - - -
@@ -123,7 +123,7 @@ public class Graph {
         //right vertices(2)
         if (inBoundR(col, colSize) && nodeBoard[row][col + 1].getCellType() != obs) {
             node.getVertices()[2] = nodeBoard[row][col + 1];
-            node.getNodeToVertexCost()[2] = 3;
+            node.getNodeToVertexCost()[2] = 1;
         }
 
 
@@ -134,7 +134,7 @@ public class Graph {
         //below vertices(3)
         if (inBoundR(row, rowSize) && nodeBoard[row + 1][col].getCellType() != obs) {
             node.getVertices()[3] = nodeBoard[row + 1][col];
-            node.getNodeToVertexCost()[3] = 4;
+            node.getNodeToVertexCost()[3] = 1;
         }
 
     }

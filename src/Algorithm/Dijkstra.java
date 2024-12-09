@@ -115,17 +115,6 @@ public class Dijkstra implements TraversalAlgorithm {
     }
 
     /*
-    Calculate length for path, however for multiple item graph there will be
-    repeat nodes as we pass the found target to the start.
-     */
-    public int pathLength(){
-        if(localGraph.getItemCount() < 2){
-            return shortestPath.length;
-        }
-        return shortestPath.length- localGraph.getItemCount();
-    }
-
-    /*
         For reseting distances when moving backward from final item to start
      */
     private void resetDistances(int [][] distances){
@@ -165,10 +154,12 @@ public class Dijkstra implements TraversalAlgorithm {
     /**
      * Print path loops through shortest and prints node's x,y value on graph
      */
-    public void printPath() {
+    public int printPath() {
+        int length =0;
         for (int i = 0; i < shortestPath.length; i++) {
             if (shortestPath[i] != null) {
                 System.out.print(shortestPath[i]);
+                length ++;
                 if (i + 1 < shortestPath.length && shortestPath[i + 1] != null) {
                     System.out.print(" -> ");
                 }
@@ -177,6 +168,7 @@ public class Dijkstra implements TraversalAlgorithm {
             }
         }
         System.out.println();
+        return length;
     }
 
 }
