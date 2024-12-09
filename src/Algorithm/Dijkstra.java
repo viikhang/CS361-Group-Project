@@ -143,9 +143,9 @@ public class Dijkstra implements TraversalAlgorithm {
                 throw new ArrayIndexOutOfBoundsException("DISCONNECTED GRAPH");
             }
             shortestPath[index++] = current;
-            current = current.getParentNode();
+            current = current.getParentNode();// traverse up
         }
-        // reverse
+        // reverse the newly filled in path
         for(int i = 0; i < index /2; i++){
             GraphNode swap = shortestPath[i];
             shortestPath[i] = shortestPath[index - i - 1];

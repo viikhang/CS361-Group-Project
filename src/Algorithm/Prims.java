@@ -9,7 +9,9 @@ public class Prims implements TraversalAlgorithm{
         shortestPath = new GraphNode[size];
         localGraph = graph;
     }
-
+    /*
+    Overriden method for the shortestPath
+     */
     @Override
     public GraphNode[] findShortest(Graph localGraph,GraphNode start, GraphNode target){
         shortestPath = new GraphNode[size];
@@ -35,7 +37,7 @@ public class Prims implements TraversalAlgorithm{
         MinHeap heap = new MinHeap(size * 4);// over-estimate of edges
         heap.insert(current, 0);// start at current
 
-        while (current!= target){
+        while (current!= target){// can cause loop if target is disconnected
             // find new lowest edge
             current = heap.extractMin();
             // already visited
@@ -75,9 +77,9 @@ public class Prims implements TraversalAlgorithm{
                 throw new ArrayIndexOutOfBoundsException("DISCONNECTED GRAPH");
             }
             shortestPath[index++] = current;
-            current = current.getParentNode();
+            current = current.getParentNode();// traverse up
         }
-        // reverse
+        // reverse newly formed graph
         for(int i = 0; i < index /2; i++){
             GraphNode swap = shortestPath[i];
             shortestPath[i] = shortestPath[index - i - 1];

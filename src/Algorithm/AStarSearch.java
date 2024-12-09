@@ -6,7 +6,6 @@ public class AStarSearch implements TraversalAlgorithm{
     private int[][] fCost;// f cost is = g+h, heap is based on this cost
     private GraphNode[][] predecessors;// previous nodes to current
     private GraphNode[] shortestPath;// return path
-    private int pathIndex;// index for rebuilding
 
     private int size;// total nodes
     private Graph localGraph;// implemented because of Robot, need a saved graph
@@ -18,7 +17,6 @@ public class AStarSearch implements TraversalAlgorithm{
      */
     public AStarSearch(Graph graph) {
         size = graph.getTotalNodes();
-        pathIndex = 0;
         shortestPath = new GraphNode[size];
         int rows = graph.getBoard().length;
         int cols = graph.getBoard()[0].length;
@@ -110,11 +108,8 @@ public class AStarSearch implements TraversalAlgorithm{
 
                         gCost[neighbor.getRow()][neighbor.getCol()] =
                                 updatedGCost;
-
+                        //set relationship for retracing steps
                         neighbor.setParentNode(current);
-                        // despite exploring fCost min, g min is in pred
-                        predecessors[neighbor.getRow()][neighbor.getCol()] =
-                                current;//we chose this node for dijkstras
                     }
                     // fCost = H + G
                     fCost[neighbor.getRow()][neighbor.getCol()] = newHCost +
