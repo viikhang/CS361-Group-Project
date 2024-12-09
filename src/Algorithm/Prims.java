@@ -60,6 +60,16 @@ public class Prims implements TraversalAlgorithm{
 
     }
 
+    /*
+    Calculate length for path, however for multiple item graph there will be
+    repeat nodes as we pass the found target to the start.
+     */
+    public int pathLength(){
+        if(localGraph.getItemCount() < 2){
+            return shortestPath.length;
+        }
+        return shortestPath.length- localGraph.getItemCount();
+    }
     /**
      * create path goes from target and retraces paths built from target
      * until we reach the start -> this path will need to be reversed

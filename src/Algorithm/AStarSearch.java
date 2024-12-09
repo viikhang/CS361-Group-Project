@@ -1,7 +1,5 @@
 package Algorithm;
 
-import java.util.LinkedList;
-import java.util.Queue;
 
 public class AStarSearch implements TraversalAlgorithm{
     private int[][] gCost;// actual distance is gCost
@@ -130,6 +128,16 @@ public class AStarSearch implements TraversalAlgorithm{
         return null;// no path
     }
 
+    /*
+    Calculate length for path, however for multiple item graph there will be
+    repeat nodes as we pass the found target to the start.
+     */
+    public int pathLength(){
+        if(localGraph.getItemCount() < 2){
+            return shortestPath.length;
+        }
+        return shortestPath.length- localGraph.getItemCount();
+    }
     /*
     just absolute value function
      */

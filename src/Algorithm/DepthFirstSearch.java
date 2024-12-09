@@ -64,6 +64,16 @@ public class DepthFirstSearch implements TraversalAlgorithm{
         }
     }
 
+    /*
+    Calculate length for path, however for multiple item graph there will be
+    repeat nodes as we pass the found target to the start.
+     */
+    public int pathLength(){
+        if(localGraph.getItemCount() < 2){
+            return shortestPath.length;
+        }
+        return shortestPath.length- localGraph.getItemCount();
+    }
     public void printPath() {
         for (int i = 0; i < shortestPath.length; i++) {
             if (shortestPath[i] != null) {

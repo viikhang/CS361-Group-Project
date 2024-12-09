@@ -58,7 +58,9 @@ public class Main {
             endTime = System.nanoTime();
             dfs.printPath();
             finalTime = endTime - startTime;
+            int pathLength = dfs.pathLength();
             System.out.println("Depth First Search Time (nano seconds): " + finalTime);
+            System.out.println("LENGTH: "+ pathLength);
         } else { //handling multiple items
             finalTime = 0;
             GraphNode targetNode = graph.getItemNodeList()[0];
@@ -74,7 +76,9 @@ public class Main {
                 targetNode = graph.getItemNodeList()[index];
                 dfs.printPath();
             }
+            int pathLength = dfs.pathLength();
             System.out.println("Depth First Search Time (nano seconds): " + finalTime);
+            System.out.println("LENGTH: "+ pathLength);
         }
         System.out.println();
 
@@ -91,7 +95,9 @@ public class Main {
             endTime = System.nanoTime();
             bfs.printPath();
             finalTime = endTime - startTime;
+            int pathLength = bfs.pathLength();
             System.out.println("Breadth First Search Time (nano seconds): " + finalTime);
+            System.out.println("LENGTH: "+ pathLength);
         } else { //handle multiple items
             finalTime = 0;
             startingNode = graph.getStartingNode();
@@ -108,7 +114,9 @@ public class Main {
                 targetNode = graph.getItemNodeList()[index];
                 bfs.printPath();
             }
+            int pathLength = bfs.pathLength();
             System.out.println("Breadth First Search Time (nano seconds): " + finalTime);
+            System.out.println("LENGTH: "+ pathLength);
         }
 
         /**
@@ -145,7 +153,9 @@ public class Main {
 
                 dijk.printPath();
             }
+            int pathLength = dijk.pathLength();
             System.out.println("Dijkstra Search Time (nano seconds): " + finalTime);
+            System.out.println("LENGTH: "+ pathLength);
 
         }
 
