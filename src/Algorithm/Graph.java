@@ -2,21 +2,23 @@ package Algorithm;
 
 public class Graph {
 
-    private final CellType[][] board;
-    private GraphNode[] nodeList;
-    private GraphNode[][] adjList;
+    private final CellType[][] board; //Board containing warehouse cells
+    private GraphNode[] nodeList; //List of nodes
+    private GraphNode[][] adjList; //Nodes represented through adjacency  list
 
-    private GraphNode[] itemNodeList;
-    //use this array to know what items we need to find while traversing
-    // through the graph
-    private int itemCount = 0;
-    private int[][] weightGrid;
-    private final int rowSize;
-    private int colSize;
-    private final int totalNodes;
+    private GraphNode[] itemNodeList; //List of nodes that contain items
+    private int itemCount = 0; //Total item count
+    private final int rowSize; //Row rize
+    private final int colSize; //Column size
+    private final int totalNodes; //Total nodes
 
-    private GraphNode startingNode;
+    private GraphNode startingNode; //Starting node, left as top left corner
 
+    /**
+     * Constructor for Graph class, will create the nodes and assign the nodes
+     * that connect to each other
+     * @param board (Board containing warehouse cells)
+     */
     public Graph(CellType[][] board) {
         this.board = board;
         rowSize = board.length;
@@ -62,6 +64,10 @@ public class Graph {
 
     }
 
+    /**
+     * Add item node to itemNode list
+     * @param node Item node being added
+     */
     private void addItemNode(GraphNode node) {
         for (int i = 0; i < totalNodes; i++) {
             if (itemNodeList[i] == null) {
@@ -71,6 +77,10 @@ public class Graph {
         }
     }
 
+    /**
+     * Add node to nodeList
+     * @param node Node being added
+     */
     private void addNode(GraphNode node) {
         for (int i = 0; i < totalNodes; i++) {
             if (nodeList[i] == null) {
@@ -139,46 +149,69 @@ public class Graph {
 
     }
 
-    public GraphNode[][] getAdjList() {
-        return adjList;
-    }
-
-    public GraphNode getStartingNode() {
+    /**
+     * Return starting Node
+     * @return Starting node
+     */
+     public GraphNode getStartingNode() {
         return startingNode;
     }
 
+    /**
+     * Check if value is in bound
+     * @param val Value being checked
+     * @return True if in bound, false if not
+     */
     private boolean inBoundL(int val) {
         return val - 1 >= 0;
     }
 
+    /**
+     * Check if value is in bound based on given size
+     * @param val Value being checked
+     * @param size Value that cannot exceed this size
+     * @return True if in bound, false if not
+     */
     private boolean inBoundR(int val, int size) {
         return val + 1 < size;
     }
 
-    public void setItemNodeList(GraphNode[] itemNodeList) {
-        this.itemNodeList = itemNodeList;
-    }
-
+    /**
+     * Get total items
+     * @return Number of items
+     */
     public int getItemCount() {
         return itemCount;
     }
 
+    /**
+     * Get board representing warehouse
+     * @return Board
+     */
     public CellType[][] getBoard() {
         return board;
     }
 
+    /**
+     * Get list containing nodes
+     * @return List containing items
+     */
     public GraphNode[] getItemNodeList() {
         return itemNodeList;
     }
 
+    /**
+     * Get list of nodes
+     * @return List of nodes
+     */
     public GraphNode[] getNodeList() {
         return nodeList;
     }
 
-    public int[][] getWeightGrid() {
-        return weightGrid;
-    }
-
+    /**
+     * Get total number of nodes
+     * @return Number of nodes
+     */
     public int getTotalNodes() {
         return totalNodes;
     }
