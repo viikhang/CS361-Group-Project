@@ -49,28 +49,28 @@ public class Main {
         /**
          * Our Depth First Search Algorithm approach to finding a shortest path for
          * both single and multiple item paths, timed in NANO seconds.
-//         */
+         //         */
         System.out.println("Depth First Search Algorithm");
         //Instantiate DFS with Graph
-        DepthFirstSearch dfs = new DepthFirstSearch(graph.getTotalNodes(),graph);
-        int pathLengthD =0;// variable to keep track of current length DFS
+        DepthFirstSearch dfs = new DepthFirstSearch(graph.getTotalNodes(), graph);
+        int pathLengthD = 0;// variable to keep track of current length DFS
         if (graph.getItemCount() == 1) {
             startTime = System.nanoTime();
-            dfs.findShortest(graph,startingNode, graph.getItemNodeList()[0]);
+            dfs.findShortest(graph, startingNode, graph.getItemNodeList()[0]);
             endTime = System.nanoTime();
             finalTime = endTime - startTime;
             pathLengthD += dfs.printPath();// printPath returns current length
             System.out.println("Depth First Search Time (nano seconds): " + finalTime);
-            System.out.println("Path length: "+ (pathLengthD));
+            System.out.println("Path length: " + (pathLengthD));
         } else { //handling multiple items
             finalTime = 0;
             GraphNode targetNode = graph.getItemNodeList()[0];// list of items
             int index = 0;// where we are in nodeList
-            while(index < graph.getItemCount()) {
+            while (index < graph.getItemCount()) {
                 // reset is boolean just in case we traverse same node
                 resetGraphNodes();
                 startTime = System.nanoTime();
-                dfs.findShortest(graph,startingNode, targetNode);
+                dfs.findShortest(graph, startingNode, targetNode);
                 endTime = System.nanoTime();
                 finalTime += endTime - startTime;
                 index++;// found item
@@ -81,7 +81,7 @@ public class Main {
             }
 
             System.out.println("Depth First Search Time (nano seconds): " + finalTime);
-            System.out.println("Path length: "+ (pathLengthD - graph.getItemCount() -1));
+            System.out.println("Path length: " + (pathLengthD - graph.getItemCount() - 1));
         }
         System.out.println();
 
@@ -91,17 +91,17 @@ public class Main {
          */
         System.out.println("Breadth First Search Algorithm");
         //Instantiate BFS with Graph
-        BreadthFirstSearch bfs = new BreadthFirstSearch(graph.getTotalNodes(),graph);
+        BreadthFirstSearch bfs = new BreadthFirstSearch(graph.getTotalNodes(), graph);
         resetGraphNodes();// reset GraphNode relationships
-        int pathLengthB =0;// pathLength for BFS
+        int pathLengthB = 0;// pathLength for BFS
         if (graph.getItemCount() == 1) {
             startTime = System.nanoTime();
-            bfs.findShortest(graph,startingNode, graph.getItemNodeList()[0]);
+            bfs.findShortest(graph, startingNode, graph.getItemNodeList()[0]);
             endTime = System.nanoTime();
             finalTime = endTime - startTime;
             pathLengthB += bfs.printPath();
             System.out.println("Breadth First Search Time (nano seconds): " + finalTime);
-            System.out.println("Path length: "+ (pathLengthB));
+            System.out.println("Path length: " + (pathLengthB));
         } else { //handle multiple items
             finalTime = 0;
             startingNode = graph.getStartingNode();
@@ -110,16 +110,16 @@ public class Main {
             while (index < graph.getItemCount()) {
                 resetGraphNodes();
                 startTime = System.nanoTime();
-                bfs.findShortest(graph,startingNode, targetNode);
+                bfs.findShortest(graph, startingNode, targetNode);
                 endTime = System.nanoTime();
                 finalTime += endTime - startTime;
                 index++;
                 startingNode = targetNode;
                 targetNode = graph.getItemNodeList()[index];
-                pathLengthB +=bfs.printPath();
+                pathLengthB += bfs.printPath();
             }
             System.out.println("Breadth First Search Time (nano seconds): " + finalTime);
-            System.out.println("Path length: "+ (pathLengthB- graph.getItemCount() -1));
+            System.out.println("Path length: " + (pathLengthB - graph.getItemCount() - 1));
         }
 
         /**
@@ -131,15 +131,15 @@ public class Main {
         //Instantiate Dijkstra with Graph
         Dijkstra dijk = new Dijkstra(graph);
         resetGraphNodes();
-        int pathLengthDij =0;
+        int pathLengthDij = 0;
         if (graph.getItemCount() == 1) {
             startTime = System.nanoTime();
-            dijk.findShortest(graph,startingNode, graph.getItemNodeList()[0]);
+            dijk.findShortest(graph, startingNode, graph.getItemNodeList()[0]);
             endTime = System.nanoTime();
             finalTime = endTime - startTime;
             pathLengthDij += dijk.printPath();
             System.out.println("Dijkstra Search Time (nano seconds): " + finalTime);
-            System.out.println("Path length: "+ (pathLengthDij));
+            System.out.println("Path length: " + (pathLengthDij));
         } else {
             finalTime = 0;
             startingNode = graph.getStartingNode();
@@ -148,7 +148,7 @@ public class Main {
             while (index < graph.getItemCount()) {
                 resetGraphNodes();
                 startTime = System.nanoTime();
-                dijk.findShortest(graph,startingNode, targetNode);
+                dijk.findShortest(graph, startingNode, targetNode);
                 endTime = System.nanoTime();
                 finalTime += endTime - startTime;
                 index++;
@@ -159,7 +159,7 @@ public class Main {
             }
 
             System.out.println("Dijkstra Search Time (nano seconds): " + finalTime);
-            System.out.println("Path length: "+ (pathLengthDij- graph.getItemCount() -1));
+            System.out.println("Path length: " + (pathLengthDij - graph.getItemCount() - 1));
 
         }
 
@@ -172,15 +172,15 @@ public class Main {
         //Instantiate A* with Graph
         AStarSearch Astar = new AStarSearch(graph);
         resetGraphNodes();
-        int pathLengthA =0;
+        int pathLengthA = 0;
         if (graph.getItemCount() == 1) {
             startTime = System.nanoTime();
-            Astar.findShortest(graph,startingNode, graph.getItemNodeList()[0]);
+            Astar.findShortest(graph, startingNode, graph.getItemNodeList()[0]);
             endTime = System.nanoTime();
             finalTime = endTime - startTime;
             pathLengthA += Astar.printPath();
             System.out.println("A* Search Time (nano seconds): " + finalTime);
-            System.out.println("Path length: "+ (pathLengthA));
+            System.out.println("Path length: " + (pathLengthA));
         } else {
             finalTime = 0;
             startingNode = graph.getStartingNode();
@@ -189,17 +189,17 @@ public class Main {
             while (index < graph.getItemCount()) {
                 resetGraphNodes();
                 startTime = System.nanoTime();
-                Astar.findShortest(graph,startingNode, targetNode);
+                Astar.findShortest(graph, startingNode, targetNode);
                 endTime = System.nanoTime();
                 finalTime += endTime - startTime;
                 index++;
                 startingNode = targetNode;
                 targetNode = graph.getItemNodeList()[index];
-                pathLengthA +=Astar.printPath();
+                pathLengthA += Astar.printPath();
             }
 
             System.out.println("A* Search Time (nano seconds): " + finalTime);
-            System.out.println("Path length: "+ (pathLengthA- graph.getItemCount() -1));
+            System.out.println("Path length: " + (pathLengthA - graph.getItemCount() - 1));
         }
 
         /**
@@ -211,16 +211,15 @@ public class Main {
         Prims prims = new Prims(graph);
         resetGraphNodes();
         int pathLengthP = 0;
-        if(graph.getItemCount() == 1) {
+        if (graph.getItemCount() == 1) {
             startTime = System.nanoTime();
-            prims.findShortest(graph,startingNode,graph.getItemNodeList()[0]);
+            prims.findShortest(graph, startingNode, graph.getItemNodeList()[0]);
             endTime = System.nanoTime();
             finalTime = endTime - startTime;
-            pathLengthP +=prims.printPath();
-            System.out.println(" Prims Search Time (nano seconds): "+ finalTime);
-            System.out.println("Path length: "+ pathLengthP);
-        }
-        else{
+            pathLengthP += prims.printPath();
+            System.out.println(" Prims Search Time (nano seconds): " + finalTime);
+            System.out.println("Path length: " + pathLengthP);
+        } else {
             finalTime = 0;
             startingNode = graph.getStartingNode();
             GraphNode targetNode = graph.getItemNodeList()[0];
@@ -228,18 +227,18 @@ public class Main {
             while (index < graph.getItemCount()) {
                 resetGraphNodes();
                 startTime = System.nanoTime();
-                prims.findShortest(graph,startingNode,targetNode);
+                prims.findShortest(graph, startingNode, targetNode);
                 endTime = System.nanoTime();
 
                 finalTime += endTime - startTime;
                 index++;
                 startingNode = targetNode;
                 targetNode = graph.getItemNodeList()[index];
-                pathLengthP +=prims.printPath();
+                pathLengthP += prims.printPath();
 
             }
             System.out.println("Prims search Time (nano seconds): " + finalTime);
-            System.out.println("Path length: "+ (pathLengthP - graph.getItemCount() -1));
+            System.out.println("Path length: " + (pathLengthP - graph.getItemCount() - 1));
         }
         System.out.println();
         System.out.println();
@@ -249,11 +248,11 @@ public class Main {
         //DFS Robot
         DepthFirstSearch dfsRobot = new DepthFirstSearch(graph.getTotalNodes(), graph);
         // fresh DFS for robot
-        Robot DFSrobot = new Robot(graph,dfsRobot);
+        Robot DFSrobot = new Robot(graph, dfsRobot);
         System.out.println(" DFS Robot");
         startTime = System.nanoTime();
         // method exclusive to Robot prints path using specific algorithm
-        DFSrobot.runRobot(graph.getItemNodeList(),graph.getStartingNode());
+        DFSrobot.runRobot(graph.getItemNodeList(), graph.getStartingNode());
         endTime = System.nanoTime();
         finalTime = endTime - startTime;
         // path length + printing procedure
@@ -264,39 +263,36 @@ public class Main {
         //BFS robot
         resetGraphNodes();
         BreadthFirstSearch bfsRobot = new BreadthFirstSearch(graph.getTotalNodes(), graph);
-        Robot BFSrobot = new Robot(graph,bfsRobot);
+        Robot BFSrobot = new Robot(graph, bfsRobot);
         System.out.println("BFS Robot");
         startTime = System.nanoTime();
-        BFSrobot.runRobot(graph.getItemNodeList(),graph.getStartingNode());
+        BFSrobot.runRobot(graph.getItemNodeList(), graph.getStartingNode());
         endTime = System.nanoTime();
         finalTime = endTime - startTime;
         int Blength = BFSrobot.printPath();
         System.out.println("BFS Robot Time : " + finalTime);
         System.out.println("BFS Robot Path Length : " + Blength);
 
-
         //Dijkstra robot
         resetGraphNodes();
         Dijkstra dijkRobot = new Dijkstra(graph);
-        Robot DIJKSTRArobot = new Robot(graph,dijkRobot);
+        Robot DIJKSTRArobot = new Robot(graph, dijkRobot);
         System.out.println(" Dijkstra Robot");
         startTime = System.nanoTime();
-        DIJKSTRArobot.runRobot(graph.getItemNodeList(),graph.getStartingNode());
+        DIJKSTRArobot.runRobot(graph.getItemNodeList(), graph.getStartingNode());
         endTime = System.nanoTime();
         finalTime = endTime - startTime;
         int DijLength = DIJKSTRArobot.printPath();
         System.out.println("Dijkstra Robot Time : " + finalTime);
         System.out.println("Dijkstra Robot Path Length : " + DijLength);
 
-
-
         //A star robot
         resetGraphNodes();
         AStarSearch AstarRobot = new AStarSearch(graph);
-        Robot ASTARrobot = new Robot(graph,AstarRobot);
+        Robot ASTARrobot = new Robot(graph, AstarRobot);
         System.out.println("AStar Robot");
         startTime = System.nanoTime();
-        ASTARrobot.runRobot(graph.getItemNodeList(),graph.getStartingNode());
+        ASTARrobot.runRobot(graph.getItemNodeList(), graph.getStartingNode());
         endTime = System.nanoTime();
         finalTime = endTime - startTime;
         int ALength = ASTARrobot.printPath();
@@ -307,10 +303,10 @@ public class Main {
         // Prim Robot
         resetGraphNodes();
         Prims primsRobot = new Prims(graph);
-        Robot PRIMrobot = new Robot(graph,prims);
+        Robot PRIMrobot = new Robot(graph, prims);
         System.out.println(" Prim Robot");
         startTime = System.nanoTime();
-        PRIMrobot.runRobot(graph.getItemNodeList(),graph.getStartingNode());
+        PRIMrobot.runRobot(graph.getItemNodeList(), graph.getStartingNode());
         endTime = System.nanoTime();
         finalTime = endTime - startTime;
         int PLength = PRIMrobot.printPath();
@@ -320,7 +316,7 @@ public class Main {
 
 //        /* This is a hard coded way of finding the average of a single
 //            algorithm for the current file over 100 iterations calculating
-//            a sample mean, min and max value for performance diognostic
+//            a sample mean, min and max value for performance diagnostic
 //         */
 //        System.out.println("Mean time of Algorithm over 100 iterations");
 //        int n = 100;// iterations
@@ -368,11 +364,9 @@ public class Main {
 
     }
 
-
-
     /**
-        For every node in the graph reset its visited nodes to false for next
-        Algorithm's use on the graph
+     * For every node in the graph reset its visited nodes to false for next
+     * Algorithm's use on the graph
      */
     private static void resetGraphNodes() {
         for (int i = 0; i < graph.getNodeList().length; i++) {
@@ -383,6 +377,7 @@ public class Main {
 
     /**
      * Convert char to cellType
+     *
      * @param input- input char from file
      * @return- cellType
      */
@@ -409,6 +404,4 @@ public class Main {
             System.out.println();
         }
     }
-
-
 }

@@ -8,7 +8,7 @@ public class Robot {
     private Graph localGraph;// copy of graph from main
 
 
-    public Robot(Graph graph, TraversalAlgorithm algorithm){
+    public Robot(Graph graph, TraversalAlgorithm algorithm) {
         targets = graph.getItemNodeList();
         //account for return which could be very large
         robotPath = new GraphNode[graph.getTotalNodes() * graph.getTotalNodes()];
@@ -20,19 +20,20 @@ public class Robot {
     /**
      * runRobot works like an all encompassing way to find every node in a graph
      * without repeated calls from main, also traversing back to the start.
+     *
      * @param targets- list of items
-     * @param start - starting node
+     * @param start    - starting node
      * @return- shortest path from start to all items and back to start
      */
-    public GraphNode[] runRobot(GraphNode[]targets, GraphNode start){
+    public GraphNode[] runRobot(GraphNode[] targets, GraphNode start) {
         int index = 0;// for adding subPaths
-        int itemsFound =0;// keep track of where in targets we are
+        int itemsFound = 0;// keep track of where in targets we are
         GraphNode current = start;
-        int pathLength =0;
+        int pathLength = 0;
         // for all targets
-        for(GraphNode target: targets){
+        for (GraphNode target : targets) {
             // if we have reached the end of the list
-            if(current == null|| target == null){
+            if (current == null || target == null) {
                 break;
             }
             resetGraphNodes();// get fresh graph for traversal
@@ -41,15 +42,15 @@ public class Robot {
                 a fresh graph, start,end to make sure it can find the subPath
              */
             GraphNode[] subPath =
-                    RobotAlgorithm.findShortest(localGraph,current,target);
+                    RobotAlgorithm.findShortest(localGraph, current, target);
 
-            itemsFound ++;// subPath found
+            itemsFound++;// subPath found
 
             // fill robot path with shortest
-            for(int i =0; i< subPath.length; i++){
-                if(subPath[i] != null){
+            for (int i = 0; i < subPath.length; i++) {
+                if (subPath[i] != null) {
                     robotPath[index++] = subPath[i];
-                    if(subPath[i] == target){
+                    if (subPath[i] == target) {
                         break;
                     }
                 }
@@ -63,16 +64,16 @@ public class Robot {
          */
         GraphNode[] returnToStart =
                 RobotAlgorithm.findShortest
-                        (localGraph,targets[itemsFound -1],start);
+                        (localGraph, targets[itemsFound - 1], start);
 
         //Use this node to indicate robot going back to start
-        GraphNode tempNode = new GraphNode(-99,-99);
+        GraphNode tempNode = new GraphNode(-99, -99);
         // robot at the last index is this termination node for printing
         robotPath[index++] = tempNode;
-        for(GraphNode node : returnToStart){// fill in the last path
-            if(node != null) {
+        for (GraphNode node : returnToStart) {// fill in the last path
+            if (node != null) {
                 robotPath[index++] = node;
-                if(node == start){
+                if (node == start) {
                     break;
                 }
             }
@@ -98,7 +99,7 @@ public class Robot {
         for (int i = 0; i < robotPath.length; i++) {
             if (robotPath[i] != null) {
                 // if the path is the termination node
-                if(robotPath[i].getCol() == -99 && robotPath[i].getRow() == -99){
+                if (robotPath[i].getCol() == -99 && robotPath[i].getRow() == -99) {
                     System.out.println();
                     // message indicating return to start
                     System.out.print(robotPath[i].goingBack());

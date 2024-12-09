@@ -12,6 +12,7 @@ public class Queue {
 
     /**
      * checks if queue is empty
+     *
      * @return boolean value determining array emptiness
      */
     public boolean isEmpty() {
@@ -27,6 +28,7 @@ public class Queue {
 
     /**
      * adds given node
+     *
      * @param node: node to add to queue
      */
     public void add(GraphNode node) {
@@ -40,6 +42,7 @@ public class Queue {
 
     /**
      * removes first node of array
+     *
      * @return removed graph node
      */
     public GraphNode remove() {

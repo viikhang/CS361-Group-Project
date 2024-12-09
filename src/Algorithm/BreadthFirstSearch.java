@@ -138,6 +138,7 @@ public class BreadthFirstSearch implements TraversalAlgorithm {
             shortestPath[i] = reverse[i];
         }
     }
+
     /**
      * adds given node
      *

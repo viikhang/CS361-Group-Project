@@ -32,12 +32,13 @@ public class Dijkstra implements TraversalAlgorithm {
         }
 
     }
+
     /*
     Overriden method for the shortestPath
      */
     @Override
-    public GraphNode[] findShortest(Graph localGraph,GraphNode start, GraphNode target){
-        return dijkstraShortestPath(start,target);
+    public GraphNode[] findShortest(Graph localGraph, GraphNode start, GraphNode target) {
+        return dijkstraShortestPath(start, target);
     }
 
 
@@ -120,7 +121,7 @@ public class Dijkstra implements TraversalAlgorithm {
     /*
         For reseting distances when moving backward from final item to start
      */
-    private void resetDistances(int [][] distances){
+    private void resetDistances(int[][] distances) {
         for (int i = 0; i < distances.length; i++) {
             for (int j = 0; j < distances[0].length; j++) {
                 distances[i][j] = Integer.MAX_VALUE;
@@ -129,6 +130,7 @@ public class Dijkstra implements TraversalAlgorithm {
         }
 
     }
+
     /**
      * create path goes from target and retraces paths built from target
      * until we reach the start -> this path will need to be reversed
@@ -146,7 +148,7 @@ public class Dijkstra implements TraversalAlgorithm {
             current = current.getParentNode();// traverse up
         }
         // reverse the newly filled in path
-        for(int i = 0; i < index /2; i++){
+        for (int i = 0; i < index / 2; i++) {
             GraphNode swap = shortestPath[i];
             shortestPath[i] = shortestPath[index - i - 1];
             shortestPath[index - i - 1] = swap;
@@ -161,11 +163,11 @@ public class Dijkstra implements TraversalAlgorithm {
      * the subPaths are added to a total path length for multiple items.
      */
     public int printPath() {
-        int length =0;// current length
+        int length = 0;// current length
         for (int i = 0; i < shortestPath.length; i++) {// length of shortest
             if (shortestPath[i] != null) {// valid node
                 System.out.print(shortestPath[i]);// print valid node
-                length ++;
+                length++;
                 // check for end of path and add arrow in between nodes
                 if (i + 1 < shortestPath.length && shortestPath[i + 1] != null) {
                     System.out.print(" -> ");

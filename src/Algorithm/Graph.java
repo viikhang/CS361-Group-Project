@@ -17,6 +17,7 @@ public class Graph {
     /**
      * Constructor for Graph class, will create the nodes and assign the nodes
      * that connect to each other
+     *
      * @param board (Board containing warehouse cells)
      */
     public Graph(CellType[][] board) {
@@ -66,6 +67,7 @@ public class Graph {
 
     /**
      * Add item node to itemNode list
+     *
      * @param node Item node being added
      */
     private void addItemNode(GraphNode node) {
@@ -79,6 +81,7 @@ public class Graph {
 
     /**
      * Add node to nodeList
+     *
      * @param node Node being added
      */
     private void addNode(GraphNode node) {
@@ -151,14 +154,16 @@ public class Graph {
 
     /**
      * Return starting Node
+     *
      * @return Starting node
      */
-     public GraphNode getStartingNode() {
+    public GraphNode getStartingNode() {
         return startingNode;
     }
 
     /**
      * Check if value is in bound
+     *
      * @param val Value being checked
      * @return True if in bound, false if not
      */
@@ -168,7 +173,8 @@ public class Graph {
 
     /**
      * Check if value is in bound based on given size
-     * @param val Value being checked
+     *
+     * @param val  Value being checked
      * @param size Value that cannot exceed this size
      * @return True if in bound, false if not
      */
@@ -178,6 +184,7 @@ public class Graph {
 
     /**
      * Get total items
+     *
      * @return Number of items
      */
     public int getItemCount() {
@@ -186,6 +193,7 @@ public class Graph {
 
     /**
      * Get board representing warehouse
+     *
      * @return Board
      */
     public CellType[][] getBoard() {
@@ -194,6 +202,7 @@ public class Graph {
 
     /**
      * Get list containing nodes
+     *
      * @return List containing items
      */
     public GraphNode[] getItemNodeList() {
@@ -202,6 +211,7 @@ public class Graph {
 
     /**
      * Get list of nodes
+     *
      * @return List of nodes
      */
     public GraphNode[] getNodeList() {
@@ -210,6 +220,7 @@ public class Graph {
 
     /**
      * Get total number of nodes
+     *
      * @return Number of nodes
      */
     public int getTotalNodes() {

@@ -1,21 +1,23 @@
 package Algorithm;
 
-public class Prims implements TraversalAlgorithm{
+public class Prims implements TraversalAlgorithm {
     private GraphNode[] shortestPath;
     private int size;
     private Graph localGraph;
+
     public Prims(Graph graph) {
         size = graph.getTotalNodes();
         shortestPath = new GraphNode[size];
         localGraph = graph;
     }
+
     /*
     Overriden method for the shortestPath
      */
     @Override
-    public GraphNode[] findShortest(Graph localGraph,GraphNode start, GraphNode target){
+    public GraphNode[] findShortest(Graph localGraph, GraphNode start, GraphNode target) {
         shortestPath = new GraphNode[size];
-        return primMST(start,target);
+        return primMST(start, target);
     }
 
     /**
@@ -27,28 +29,32 @@ public class Prims implements TraversalAlgorithm{
      * path however it searched through many adjacent nodes to get there making it
      * super slow.
      *
-     * @param start- starting node
+     * @param start-  starting node
      * @param target- ending node
      * @return shortest path
      */
-    private GraphNode[]  primMST(GraphNode start, GraphNode target) {
+    private GraphNode[] primMST(GraphNode start, GraphNode target) {
         GraphNode current = start;
         current.setParentNode(null);
         MinHeap heap = new MinHeap(size * 4);// over-estimate of edges
         heap.insert(current, 0);// start at current
 
-        while (current!= target){// can cause loop if target is disconnected
+        while (current != target) {// can cause loop if target is disconnected
             // find new lowest edge
             current = heap.extractMin();
             // already visited
-            if (current.isVisited()){ continue;}
+            if (current.isVisited()) {
+                continue;
+            }
 
             current.setVisited(true);// now visiting
 
-            for(int i =0; i < 4; i++){// all adjacent to current
+            for (int i = 0; i < 4; i++) {// all adjacent to current
                 GraphNode node = current.getVertices()[i];// temporary node
                 // if its not valid edge
-                if (node == null || node.isVisited()){ continue;}
+                if (node == null || node.isVisited()) {
+                    continue;
+                }
                 // if valid set new edge as child of current
                 node.setParentNode(current);
                 // insert edge
@@ -80,13 +86,14 @@ public class Prims implements TraversalAlgorithm{
             current = current.getParentNode();// traverse up
         }
         // reverse newly formed graph
-        for(int i = 0; i < index /2; i++){
+        for (int i = 0; i < index / 2; i++) {
             GraphNode swap = shortestPath[i];
             shortestPath[i] = shortestPath[index - i - 1];
             shortestPath[index - i - 1] = swap;
         }
 
     }
+
     /**
      * Print path loops through shortest and prints node's x,y value on graph,
      * because the length is dependent on these specific values printPath()
@@ -94,11 +101,11 @@ public class Prims implements TraversalAlgorithm{
      * the subPaths are added to a total path length for multiple items.
      */
     public int printPath() {
-        int length =0;// current length
+        int length = 0;// current length
         for (int i = 0; i < shortestPath.length; i++) {// length of shortest
             if (shortestPath[i] != null) {// valid node
                 System.out.print(shortestPath[i]);// print valid node
-                length ++;
+                length++;
                 // check for end of path and add arrow in between nodes
                 if (i + 1 < shortestPath.length && shortestPath[i + 1] != null) {
                     System.out.print(" -> ");

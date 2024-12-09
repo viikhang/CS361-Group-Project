@@ -13,6 +13,7 @@ public class GraphNode {
 
     /**
      * Graph Node constructor
+     *
      * @param xCord (X coordinate)
      * @param yCord (Y coordinate)
      */
@@ -26,6 +27,7 @@ public class GraphNode {
 
     /**
      * Get parent node
+     *
      * @return (Parent node)
      */
     public GraphNode getParentNode() {
@@ -34,6 +36,7 @@ public class GraphNode {
 
     /**
      * Set Parent node
+     *
      * @param parentNode Node parent
      */
     public void setParentNode(GraphNode parentNode) {
@@ -42,6 +45,7 @@ public class GraphNode {
 
     /**
      * Set cell type
+     *
      * @param cellType Three types of possible cells
      */
     public void setCellType(CellType cellType) {
@@ -50,6 +54,7 @@ public class GraphNode {
 
     /**
      * Get cell type
+     *
      * @return Cell Type
      */
     public CellType getCellType() {
@@ -58,6 +63,7 @@ public class GraphNode {
 
     /**
      * Return list of vertices
+     *
      * @return List of vertices
      */
     public GraphNode[] getVertices() {
@@ -66,6 +72,7 @@ public class GraphNode {
 
     /**
      * List containing weight cost to neighbor
+     *
      * @return List of weight costs
      */
     public int[] getNodeToVertexCost() {
@@ -74,6 +81,7 @@ public class GraphNode {
 
     /**
      * Check if node has been visited
+     *
      * @return True if visited
      */
     public boolean isVisited() {
@@ -82,6 +90,7 @@ public class GraphNode {
 
     /**
      * Set node to visited or not visited
+     *
      * @param visited True if visited
      */
     public void setVisited(boolean visited) {
@@ -90,6 +99,7 @@ public class GraphNode {
 
     /**
      * Get row value of node
+     *
      * @return X coordinate
      */
     public int getRow() {
@@ -98,6 +108,7 @@ public class GraphNode {
 
     /**
      * Get column value of node
+     *
      * @return Y coordinate
      */
     public int getCol() {
@@ -106,6 +117,7 @@ public class GraphNode {
 
     /**
      * Print x and y coordinate
+     *
      * @return String representation of Node
      */
     @Override
@@ -115,9 +127,10 @@ public class GraphNode {
 
     /**
      * Used for temp node in order to indicate robot is going backwards
+     *
      * @return String
      */
-    public String goingBack(){
+    public String goingBack() {
         return "(Traversing back to start)";
     }
 }

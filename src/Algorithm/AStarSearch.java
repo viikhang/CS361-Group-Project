@@ -1,7 +1,7 @@
 package Algorithm;
 
 
-public class AStarSearch implements TraversalAlgorithm{
+public class AStarSearch implements TraversalAlgorithm {
     private int[][] gCost;// actual distance is gCost
     private int[][] fCost;// f cost is = g+h, heap is based on this cost
     private GraphNode[][] predecessors;// previous nodes to current
@@ -35,12 +35,13 @@ public class AStarSearch implements TraversalAlgorithm{
         }
 
     }
+
     /*
     Overriden method for the shortestPath
      */
     @Override
-    public GraphNode[] findShortest(Graph localGraph,GraphNode start, GraphNode target){
-        return AStarShortestPath(start,target);
+    public GraphNode[] findShortest(Graph localGraph, GraphNode start, GraphNode target) {
+        return AStarShortestPath(start, target);
     }
 
     // Actual algorithm call implemented before Robot, kind of a junk method.
@@ -154,13 +155,14 @@ public class AStarSearch implements TraversalAlgorithm{
             current = current.getParentNode();// traverse up
         }
         // reverse path
-        for(int i = 0; i < index /2; i++){
+        for (int i = 0; i < index / 2; i++) {
             GraphNode swap = shortestPath[i];
             shortestPath[i] = shortestPath[index - i - 1];
             shortestPath[index - i - 1] = swap;
         }
 
     }
+
     /**
      * Print path loops through shortest and prints node's x,y value on graph,
      * because the length is dependent on these specific values printPath()
@@ -168,11 +170,11 @@ public class AStarSearch implements TraversalAlgorithm{
      * the subPaths are added to a total path length for multiple items.
      */
     public int printPath() {
-        int length =0;// current length
+        int length = 0;// current length
         for (int i = 0; i < shortestPath.length; i++) {// length of shortest
             if (shortestPath[i] != null) {// valid node
                 System.out.print(shortestPath[i]);// print valid node
-                length ++;
+                length++;
                 // check for end of path and add arrow in between nodes
                 if (i + 1 < shortestPath.length && shortestPath[i + 1] != null) {
                     System.out.print(" -> ");
