@@ -1,13 +1,19 @@
 package Algorithm;
 
 public class Queue {
-    GraphNode[] array;
-//    int index = 0;
+    GraphNode[] array; // array of graph nodes held for the queue
 
+    /**
+     * constructor for the queue list
+     */
     public Queue() {
         array = new GraphNode[1000];
     }
 
+    /**
+     * checks if queue is empty
+     * @return boolean value determining array emptiness
+     */
     public boolean isEmpty() {
         for (GraphNode node : array) {
             // might need to check a different way
@@ -19,6 +25,10 @@ public class Queue {
         return true;
     }
 
+    /**
+     * adds given node
+     * @param node: node to add to queue
+     */
     public void add(GraphNode node) {
         for (int i = 0; i < array.length; i++) {
             if (array[i] == null) {
@@ -28,12 +38,19 @@ public class Queue {
         }
     }
 
+    /**
+     * removes first node of array
+     * @return removed graph node
+     */
     public GraphNode remove() {
         GraphNode node = array[0];
         createNewArray();
         return node;
     }
 
+    /**
+     * pushes elements of arrays down to maintain stack properties.
+     */
     private void createNewArray() {
         GraphNode[] newArray = new GraphNode[1000];
         for (int i = 1; i < array.length; i++) {
@@ -41,17 +58,4 @@ public class Queue {
         }
         array = newArray;
     }
-
-
-//        GraphNode[] newArray = new GraphNode[1000];
-//        for(int i = 0; i < array.length; i++){
-//            newArray[i] = array[i];
-//            array[i] = null;
-//        }
-//
-//        for(int i = 0; i < newArray.length; i++){
-//            array[i] = newArray[i+1];
-//        }
 }
-
-

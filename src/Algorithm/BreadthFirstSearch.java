@@ -1,34 +1,43 @@
 package Algorithm;
 
-import java.util.LinkedList;
-import java.util.Queue;
+public class BreadthFirstSearch implements TraversalAlgorithm {
+    private GraphNode[] shortestPath; // holds the shortest path
+    private int pathIndex; // holds the path index
 
+    private int size; // maximum size for the array
 
-public class BreadthFirstSearch implements TraversalAlgorithm{
-    private GraphNode[] shortestPath;
-    private int pathIndex;
+    private GraphNode finalNode; // final node for a given path
 
-    private int size;
+    private GraphNode[] parentNodes; // array of all the parent nodes for any found
+    // nodes in the algorithm
+    private int parentIndex = 0; // index of the parent node
 
-    private GraphNode startNode;
-    private GraphNode finalNode;
-
-    private GraphNode[] parentNodes ;
-    private int parentIndex = 0;
-    private Graph localGraph;
-
+    /**
+     * Constructor initializing structure for BFS traversal
+     *
+     * @param size:  max size for the array that holds path
+     * @param graph: given graph that will be searched over
+     */
     public BreadthFirstSearch(int size, Graph graph) {
         this.size = size;
         shortestPath = new GraphNode[size];
         pathIndex = 0;
-        localGraph = graph;
         parentNodes = new GraphNode[graph.getTotalNodes() * graph.getTotalNodes()];
     }
 
+
     @Override
-    public GraphNode[] findShortest(Graph localGraph,GraphNode start, GraphNode target){
-        return findShortestPath(start,target);
+    public GraphNode[] findShortest(Graph localGraph, GraphNode start, GraphNode target) {
+        return findShortestPath(start, target);
     }
+
+    /**
+     * method called to find and return the shortest path found
+     *
+     * @param start:  starting node
+     * @param target: target node
+     * @return shortest path found
+     */
     private GraphNode[] findShortestPath(GraphNode start, GraphNode target) {
         pathIndex = 0;
         shortestPath = new GraphNode[size];
@@ -36,6 +45,14 @@ public class BreadthFirstSearch implements TraversalAlgorithm{
         return shortestPath;
     }
 
+    /**
+     * main bfs method that returns path if found or returns null
+     * if there is no path
+     *
+     * @param start:  starting node
+     * @param target: target node
+     * @return shortest path
+     */
     public GraphNode[] BFS(GraphNode start, GraphNode target) {
         if (bfsHelper(start, target, shortestPath)) {
             return shortestPath;
@@ -44,6 +61,15 @@ public class BreadthFirstSearch implements TraversalAlgorithm{
         return null; //no path was found
     }
 
+    /**
+     * bfs helper function that does all the path finding
+     * and searches for the item while traversing the graph
+     *
+     * @param current
+     * @param target
+     * @param shortestPath
+     * @return
+     */
     public boolean bfsHelper(GraphNode current, GraphNode target, GraphNode[] shortestPath) {
         // checks if current node is null
         //might remove
@@ -51,10 +77,8 @@ public class BreadthFirstSearch implements TraversalAlgorithm{
             return false;
         }
 
-        // might remove this
         current.setVisited(true);
         addNode(current);
-        startNode = current;
 
         // create queue
         Algorithm.Queue queue = new Algorithm.Queue();
@@ -81,22 +105,18 @@ public class BreadthFirstSearch implements TraversalAlgorithm{
                 }
                 if (v == target) {
                     finalNode = v;
-                    //System.out.println("in queue found");
-                    /// checks elements of the list
-//                    while(!queue.isEmpty()){
-//                        System.out.println(queue.remove());
-//                    }
-                    ///
                     createShortPath();
                     return true;
                 }
             }
-//            removeNodeFromPath();
         }
         return false;
     }
 
-    private void createShortPath(){
+    /**
+     * creates shortest path, saves into a short path array
+     */
+    private void createShortPath() {
         int depth = 0;
         GraphNode temp1 = finalNode;
         while (temp1 != null) {
@@ -107,20 +127,22 @@ public class BreadthFirstSearch implements TraversalAlgorithm{
         GraphNode[] reverse = new GraphNode[depth];
 
 
-
         int index = reverse.length - 1;
         GraphNode temp2 = finalNode;
-        while(temp2 != null && index >= 0){
+        while (temp2 != null && index >= 0) {
             reverse[index--] = temp2;
             temp2 = temp2.getParentNode();
         }
         shortestPath = new GraphNode[size];
-        for(int i = 0; i < reverse.length; i++){
+        for (int i = 0; i < reverse.length; i++) {
             shortestPath[i] = reverse[i];
         }
     }
-
-
+    /**
+     * adds given node
+     *
+     * @param node: node to insert to shortestPath array
+     */
     private void addNode(GraphNode node) {
         if (pathIndex < shortestPath.length) {
             shortestPath[pathIndex] = node;
@@ -128,9 +150,13 @@ public class BreadthFirstSearch implements TraversalAlgorithm{
         }
     }
 
-
+    /**
+     * prints the given shortest path found
+     *
+     * @return path length
+     */
     public int printPath() {
-        int length =0;
+        int length = 0;
         int depth = 0;
         GraphNode temp1 = finalNode;
         while (temp1 != null) {
@@ -141,10 +167,9 @@ public class BreadthFirstSearch implements TraversalAlgorithm{
         GraphNode[] reverse = new GraphNode[depth];
 
 
-
         int index = reverse.length - 1;
         GraphNode temp2 = finalNode;
-        while(temp2 != null && index >= 0){
+        while (temp2 != null && index >= 0) {
             reverse[index--] = temp2;
             temp2 = temp2.getParentNode();
         }
@@ -152,15 +177,15 @@ public class BreadthFirstSearch implements TraversalAlgorithm{
         for (int i = 0; i < reverse.length; i++) {
             System.out.print(reverse[i]);
             length++;
-            if(i < reverse.length - 1){
+            if (i < reverse.length - 1) {
                 System.out.print(" -> ");
             }
         }
 
 
         // for loop resets the parent node values of previously used nodes
-        for(GraphNode node : parentNodes){
-            if(node == null){
+        for (GraphNode node : parentNodes) {
+            if (node == null) {
                 break;
             }
             node.setParentNode(null);
@@ -168,9 +193,5 @@ public class BreadthFirstSearch implements TraversalAlgorithm{
 
         System.out.println();
         return length;
-
     }
 }
-
-
-
