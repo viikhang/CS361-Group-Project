@@ -293,8 +293,8 @@ public class Main {
 
 
         // little calculation for averaging times
-        System.out.println("Average of Dijkstra Algorithm over 100 iterations");
-        int n = 100;
+        System.out.println("Average of Algorithm over 100 iterations");
+        int n = 50;
         long totalTime = 0;
         long max = Long.MIN_VALUE;
         long min = Long.MAX_VALUE;
@@ -308,7 +308,7 @@ public class Main {
                 resetGraphNodes();
                 startTime = System.nanoTime();
                 // change to algorithm for testing purposes
-                primsRobot.findShortest(graph,startingNode, targetNode);
+                bfsRobot.findShortest(graph,startingNode, targetNode);
                 endTime = System.nanoTime();
                 finalTime += endTime - startTime;
                 index++;
