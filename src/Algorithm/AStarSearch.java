@@ -9,7 +9,7 @@ public class AStarSearch implements TraversalAlgorithm{
     private int pathIndex;// index for rebuilding
 
     private int size;// total nodes
-    private Graph localGraph;
+    private Graph localGraph;// implemented because of Robot, need a saved graph
 
     /**
      * Constructor initializing structures for A star traversal
@@ -37,24 +37,26 @@ public class AStarSearch implements TraversalAlgorithm{
         }
 
     }
+    /*
+    Overriden method for the shortestPath
+     */
     @Override
     public GraphNode[] findShortest(Graph localGraph,GraphNode start, GraphNode target){
         return AStarShortestPath(start,target);
     }
 
-    // Actual algorithm call
+    // Actual algorithm call implemented before Robot, kind of a junk method.
     private GraphNode[] AStarShortestPath(GraphNode start, GraphNode target) {
         shortestPath = new GraphNode[size];
-        shortestPath = AStar(start, target);
+        shortestPath = AStar(start, target);// call to main traversal algorithm
         return shortestPath;
 
     }
 
     /**
-     * AStar is modified DFS, and is a greedy algorithm making decisions based
-     * on actual gCost, and the heuristic cost totaled in Fcost
-     * the Heuristic cost is done on the fly and utilizes a manhattan distance
-     * <p>
+     * AStar is modified BFS, and is a greedy algorithm making decisions based
+     * on actual gCost, and the heuristic cost totaled in F-cost
+     * the Heuristic cost is done on the fly and utilizes a manhattan distance.
      * This is used because our graph does not use diagonal edges so this is
      * a more accurate way of collecting distance to nodes
      *
@@ -63,7 +65,7 @@ public class AStarSearch implements TraversalAlgorithm{
      * @return- shortest path
      */
     public GraphNode[] AStar(GraphNode start, GraphNode target) {
-        start.setParentNode(null);
+        start.setParentNode(null);// just to make sure
         gCost[start.getRow()][start.getCol()] = 0;// distance to start is 0
         // heap structure to determine the next node to visit
         MinHeap heap = new MinHeap(size);
@@ -95,7 +97,7 @@ public class AStarSearch implements TraversalAlgorithm{
                     neighbor.setParentNode(current);
                     /* manhattan distance formula for heuristic
                         target(x2,y2) current(x1,y1)
-                        Hcost = |x1-x2| - |y1 - y2|
+                        H-cost = |x1-x2| - |y1 - y2|
                      */
                     int newHCost = abs(neighbor.getRow() - target.getRow()) +
                             abs(neighbor.getCol() - target.getCol());
@@ -154,9 +156,9 @@ public class AStarSearch implements TraversalAlgorithm{
                 throw new ArrayIndexOutOfBoundsException("DISCONNECTED GRAPH");
             }
             shortestPath[index++] = current;
-            current = current.getParentNode();
+            current = current.getParentNode();// traverse up
         }
-        // reverse
+        // reverse path
         for(int i = 0; i < index /2; i++){
             GraphNode swap = shortestPath[i];
             shortestPath[i] = shortestPath[index - i - 1];
@@ -165,23 +167,27 @@ public class AStarSearch implements TraversalAlgorithm{
 
     }
     /**
-     * Print path loops through shortest and prints node's x,y value on graph
+     * Print path loops through shortest and prints node's x,y value on graph,
+     * because the length is dependent on these specific values printPath()
+     * so it returns the length of the path. This also helps with subPathing as
+     * the subPaths are added to a total path length for multiple items.
      */
     public int printPath() {
-        int length =0;
-        for (int i = 0; i < shortestPath.length; i++) {
-            if (shortestPath[i] != null) {
-                System.out.print(shortestPath[i]);
+        int length =0;// current length
+        for (int i = 0; i < shortestPath.length; i++) {// length of shortest
+            if (shortestPath[i] != null) {// valid node
+                System.out.print(shortestPath[i]);// print valid node
                 length ++;
+                // check for end of path and add arrow in between nodes
                 if (i + 1 < shortestPath.length && shortestPath[i + 1] != null) {
                     System.out.print(" -> ");
                 }
             } else {
-                break;
+                break;// reached end of path so we are done
             }
         }
         System.out.println();
-        return length;
+        return length;// current length of subpath
     }
 
 }
